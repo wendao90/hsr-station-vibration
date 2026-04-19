@@ -18,8 +18,35 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 from scipy import signal
 
-rcParams['font.sans-serif'] = ['Microsoft YaHei', 'DejaVu Sans']
-rcParams['axes.unicode_minus'] = False
+rcParams['font.sans-serif'] = ['SimSun', 'Microsoft YaHei', 'DejaVu Sans']
+rcParams['font.serif']      = ['Times New Roman', 'SimSun']
+rcParams['mathtext.fontset'] = 'stix'
+rcParams['axes.unicode_minus'] = True
+rcParams['axes.spines.top']    = False
+rcParams['axes.spines.right']  = False
+rcParams['xtick.direction']    = 'in'
+rcParams['ytick.direction']    = 'in'
+rcParams['legend.frameon']     = False
+rcParams['axes.linewidth']     = 0.8
+rcParams['xtick.major.width']  = 0.8
+rcParams['ytick.major.width']  = 0.8
+rcParams['font.size']          = 12
+rcParams['axes.titlesize']     = 12
+rcParams['axes.labelsize']     = 11
+rcParams['xtick.labelsize']    = 10
+rcParams['ytick.labelsize']    = 10
+rcParams['legend.fontsize']    = 10
+rcParams['axes.grid']          = False
+
+# Force mathtext rendering on log axes so negative exponents always show.
+from matplotlib.ticker import FuncFormatter
+_LOG_FMT = FuncFormatter(lambda v, pos: r'$10^{%d}$' % int(round(np.log10(v))) if v > 0 else '')
+
+def _apply_log_formatter(ax, which='y'):
+    if which in ('y', 'both'):
+        ax.yaxis.set_major_formatter(_LOG_FMT)
+    if which in ('x', 'both'):
+        ax.xaxis.set_major_formatter(_LOG_FMT)
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 EVENTS_DIR = os.path.join(BASE, 'events')
@@ -205,7 +232,7 @@ for cat_id, cat_name in cats_to_show:
     print(f'{cat_name:<26s} {len(sub):>4d} {sub["wk_z_rms"].mean():>10.5f}  {sub["wd_xy_rms"].mean():>10.5f}  {sub["iso_total"].mean():>10.5f}')
 
 # ============ Figure: 1/3 octave band comparison ============
-fig, axes = plt.subplots(1, 2, figsize=(14, 5.5), sharey=True)
+fig, ax = plt.subplots(1, 1, figsize=(6, 4.2))
 
 def plot_cat(ax, cat_id, label, color, linestyle='-'):
     sub = df_iso[df_iso['category'] == cat_id]
@@ -217,36 +244,23 @@ def plot_cat(ax, cat_id, label, color, linestyle='-'):
     if len(sub) > 1:
         ax.fill_between(THIRD_OCTAVE_CENTERS, values - std, values + std, color=color, alpha=0.15)
 
-# Panel A: service desk + ground floor event vs baseline
-plot_cat(axes[0], 'clean_bgnd_service_desk', '服务台 本底', '#d4a373')
-plot_cat(axes[0], 'train_pass_service_desk', '服务台 过车', '#f0a050')
-plot_cat(axes[0], 'clean_bgnd_ground_floor', '地面 本底',   '#9fb9aa')
-plot_cat(axes[0], 'train_pass_ground_floor', '地面 过车',   '#78c896')
-axes[0].set_xscale('log')
-axes[0].set_yscale('log')
-axes[0].set_xlabel('1/3 倍频程中心频率 (Hz)')
-axes[0].set_ylabel('1/3 倍频程 RMS (m/s²)')
-axes[0].set_title('(a) 站房区域: 1/3 倍频程谱对比')
-axes[0].grid(alpha=0.3, which='both')
-axes[0].legend(fontsize=9)
-axes[0].set_xticks([1, 2, 5, 10, 20, 50])
-axes[0].set_xticklabels(['1','2','5','10','20','50'])
+# Single panel with all 5 series — one plot is enough to compare bgnd vs
+# train-pass at service desk + ground floor, plus platform as reference.
+# Solid line = train-pass / active; dashed line = background.
+plot_cat(ax, 'clean_bgnd_service_desk', '服务台 本底', '#d4a373', linestyle='--')
+plot_cat(ax, 'train_pass_service_desk', '服务台 过车', '#f0a050')
+plot_cat(ax, 'clean_bgnd_ground_floor', '地面 本底',   '#9fb9aa', linestyle='--')
+plot_cat(ax, 'train_pass_ground_floor', '地面 过车',   '#78c896')
+plot_cat(ax, 'platform',                '站台 全程',   '#a78bfa')
+ax.set_xscale('log')
+ax.set_yscale('log')
+_apply_log_formatter(ax, 'y')
+ax.set_xlabel('1/3 倍频程中心频率/Hz')
+ax.set_ylabel(r'1/3 倍频程 RMS/(m·s$^{-2}$)')
+ax.legend(loc='best')
+ax.set_xticks([1, 2, 5, 10, 20, 50])
+ax.set_xticklabels(['1','2','5','10','20','50'])
 
-# Panel B: station scenarios (service desk vs platform)
-plot_cat(axes[1], 'clean_bgnd_service_desk', '服务台 本底', '#d4a373')
-plot_cat(axes[1], 'train_pass_service_desk', '服务台 过车', '#f0a050')
-plot_cat(axes[1], 'clean_bgnd_ground_floor', '地面 本底',   '#9fb9aa')
-plot_cat(axes[1], 'platform',                '站台 全程',   '#a78bfa')
-axes[1].set_xscale('log')
-axes[1].set_yscale('log')
-axes[1].set_xlabel('1/3 倍频程中心频率 (Hz)')
-axes[1].set_title('(b) 站房 3 个场景对比')
-axes[1].grid(alpha=0.3, which='both')
-axes[1].legend(fontsize=9)
-axes[1].set_xticks([1, 2, 5, 10, 20, 50])
-axes[1].set_xticklabels(['1','2','5','10','20','50'])
-
-plt.suptitle('湖州南浔站车致振动 1/3 倍频程分析', y=1.02, fontsize=13)
 plt.tight_layout()
 plt.savefig(os.path.join(OUT, 'paper_octave_bands.png'), dpi=140, bbox_inches='tight')
 plt.close()
@@ -254,7 +268,7 @@ plt.close()
 print(f'\n[OK] {os.path.join(OUT, "paper_octave_bands.png")}')
 
 # ============ Figure: ISO 2631 weighted RMS bar chart ============
-fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+fig, ax = plt.subplots(1, 1, figsize=(6, 3.5))
 cat_order = [
     ('clean_bgnd_service_desk', '服务台本底',  '#d4a373'),
     ('train_pass_service_desk', '服务台过车',  '#f0a050'),
@@ -270,16 +284,23 @@ tot_means= [df_iso[df_iso['category']==c].iso_total.mean() for c, _, _ in cat_or
 ax.bar(x - w, wk_means, w, label='W_k 垂向(Z轴)', color='#3b82f6')
 ax.bar(x,     wd_means, w, label='W_d 水平(XY)',  color='#10b981')
 ax.bar(x + w, tot_means,w, label='总加权 (1.4·Wd + Wk)', color='#f59e0b')
-ax.axhline(0.015, color='#6b7280', linestyle=':', linewidth=1, label='ISO 感知阈 0.015')
-ax.axhline(0.030, color='#6b7280', linestyle='--', linewidth=1, label='ISO 可察觉 0.030')
-ax.axhline(0.080, color='#6b7280', linestyle='-.', linewidth=1, label='ISO 可能不适 0.080')
+ax.axhline(0.015, color='#6b7280', linestyle=':',  linewidth=1)
+ax.axhline(0.030, color='#6b7280', linestyle='--', linewidth=1)
+ax.axhline(0.080, color='#6b7280', linestyle='-.', linewidth=1)
 ax.set_xticks(x)
 ax.set_xticklabels([c[1] for c in cat_order], rotation=20, ha='right')
-ax.set_ylabel('频率加权 RMS (m/s²)')
+ax.set_ylabel(r'频率加权 RMS/(m·s$^{-2}$)')
 ax.set_yscale('log')
-ax.set_title('ISO 2631-1 频率加权 RMS 对比')
-ax.legend(fontsize=9, loc='upper left')
-ax.grid(alpha=0.3, axis='y', which='both')
+_apply_log_formatter(ax, 'y')
+# Inline labels for the ISO threshold lines — centred on the x-range.
+_x_lbl = (len(cat_order) - 1) / 2
+for _y, _txt in [(0.015, 'ISO 感知阈 0.015'),
+                 (0.030, 'ISO 可察觉 0.030'),
+                 (0.080, 'ISO 可能不适 0.080')]:
+    ax.text(_x_lbl, _y, _txt, ha='center', va='bottom',
+            fontsize=9, color='#6b7280')
+# Legend between the 0.030 (可察觉) and 0.080 (可能不适) threshold lines.
+ax.legend(loc='center left', bbox_to_anchor=(0.01, 0.80))
 plt.tight_layout()
 plt.savefig(os.path.join(OUT, 'paper_iso2631_rms.png'), dpi=140, bbox_inches='tight')
 plt.close()

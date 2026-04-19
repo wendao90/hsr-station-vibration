@@ -68,7 +68,10 @@ with sync_playwright() as p:
         json.dump(align_obj, f, ensure_ascii=False)
 
     browser = p.chromium.launch(headless=True)
-    context = browser.new_context(viewport={'width': 1600, 'height': 1000}, device_scale_factor=2)
+    # Smaller viewport + CSS font bump → content is larger relative to the
+    # final PNG → text stays readable after the figure is shrunk to the
+    # 14 cm journal column width.
+    context = browser.new_context(viewport={'width': 1100, 'height': 720}, device_scale_factor=2)
     page = context.new_page()
     # Auto-confirm any window.confirm() dialogs
     page.on('dialog', lambda d: d.accept())
@@ -81,6 +84,24 @@ with sync_playwright() as p:
     page.route('**/notes.txt', _route_notes)
     page.goto(URL)
     page.wait_for_timeout(3500)
+
+    # Bump font sizes across the tool so the screenshot is readable at 14 cm.
+    page.add_style_tag(content='''
+      /* Uniform font size across the entire UI — one size for everything
+         except the page title. Matches journal-figure readability. */
+      body, body *, button, input, select, label, span, div, td, th, p {
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+      }
+      h1 { font-size: 22px !important; }
+      button { padding: 6px 14px !important; }
+      /* Panel heights — prioritise top (waveform), then middle (xls status
+         with ≥2 data rows visible), then bottom (event list). */
+      #statusPanel  { max-height: 150px !important; min-height: 110px !important; }
+      #eventListPanel { max-height: 90px  !important; }
+      #noteRefLabel { max-width: 520px !important; }
+    ''')
+    page.wait_for_timeout(500)
 
     # Import the demo-sanitized alignment JSON
     page.set_input_files('#importFile', tmp_path)

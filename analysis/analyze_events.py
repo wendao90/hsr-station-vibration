@@ -16,8 +16,25 @@ from scipy import signal
 from scipy.fft import rfft, rfftfreq
 import pandas as pd
 
-rcParams['font.sans-serif'] = ['Microsoft YaHei', 'DejaVu Sans']
-rcParams['axes.unicode_minus'] = False
+rcParams['font.sans-serif'] = ['SimSun', 'Microsoft YaHei', 'DejaVu Sans']
+rcParams['font.serif']      = ['Times New Roman', 'SimSun']
+rcParams['mathtext.fontset'] = 'stix'
+rcParams['axes.unicode_minus'] = True
+rcParams['axes.spines.top']    = False
+rcParams['axes.spines.right']  = False
+rcParams['xtick.direction']    = 'in'
+rcParams['ytick.direction']    = 'in'
+rcParams['legend.frameon']     = False
+rcParams['axes.linewidth']     = 0.8
+rcParams['xtick.major.width']  = 0.8
+rcParams['ytick.major.width']  = 0.8
+rcParams['font.size']          = 14
+rcParams['axes.titlesize']     = 14
+rcParams['axes.labelsize']     = 13
+rcParams['xtick.labelsize']    = 12
+rcParams['ytick.labelsize']    = 12
+rcParams['legend.fontsize']    = 12
+rcParams['axes.grid']          = False
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 EVENTS_DIR = os.path.join(BASE, 'events')
@@ -90,29 +107,33 @@ def compute_event_features(data, ev_start, ev_end, sr):
 
 def plot_event(ev_id, label, group_desc, data, ev_start, ev_end, sr, features):
     """Plot time series + PSD + spectrogram for one event."""
-    fig, axes = plt.subplots(3, 1, figsize=(11, 7))
+    fig, axes = plt.subplots(3, 1, figsize=(6.5, 6))
     t = data['time']
     abs_acc = data['abs_acc']
     ax_plot = axes[0]
     ax_plot.plot(t, abs_acc, color='#a78bfa', linewidth=0.8)
-    ax_plot.axvspan(ev_start, ev_end, color='#60a5fa', alpha=0.15, label='event')
-    ax_plot.axhline(features.get('baseline_mean') or 0, color='#6b7280', linestyle=':', linewidth=1, label='baseline mean')
-    ax_plot.set_xlabel('Time (s) within xls')
-    ax_plot.set_ylabel('|a| (m/s²)')
-    ax_plot.set_title(f'{ev_id}  {label}  [{group_desc}]  peak={features["peak"]:.3f} m/s²  RMS={features["rms"]:.4f}  SNR={features.get("snr_db",0):.1f} dB')
-    ax_plot.legend(loc='upper right', fontsize=8)
-    ax_plot.grid(alpha=0.3)
+    ax_plot.axvspan(ev_start, ev_end, color='#60a5fa', alpha=0.15, label='事件段')
+    ax_plot.axhline(features.get('baseline_mean') or 0, color='#6b7280', linestyle=':', linewidth=1, label='本底均值')
+    ax_plot.set_xlabel('时间/s')
+    ax_plot.set_ylabel(r'|a|/(m·s$^{-2}$)')
+    ax_plot.set_title(f'（a） {ev_id} {label} — 峰值 {features["peak"]:.3f} m·s$^{{-2}}$，RMS {features["rms"]:.4f} m·s$^{{-2}}$，SNR {features.get("snr_db",0):.1f} dB')
+    ax_plot.legend(loc='upper right')
 
     # PSD
     ax_psd = axes[1]
     if 'psd' in features:
         ax_psd.semilogy(features['psd_freqs'], features['psd'], color='#3b82f6')
         ax_psd.set_xlim(0, sr/2)
-        ax_psd.set_xlabel('Frequency (Hz)')
-        ax_psd.set_ylabel('PSD (m²/s⁴/Hz)')
-        ax_psd.set_title(f'PSD (dominant ≈ {features["dominant_freq"]:.1f} Hz)')
+        ax_psd.set_xlabel('频率/Hz')
+        ax_psd.set_ylabel(r'PSD/(m$^{2}$·s$^{-4}$·Hz$^{-1}$)')
+        ax_psd.set_title(f'（b） 功率谱密度（主频 ≈ {features["dominant_freq"]:.1f} Hz）')
         ax_psd.axvline(features['dominant_freq'], color='#f59e0b', linestyle='--', linewidth=1)
-        ax_psd.grid(alpha=0.3, which='both')
+        # Force mathtext rendering on log ticks so the negative exponent
+        # sign always shows (the default LogFormatterSciNotation sometimes
+        # drops the minus under stix+SimSun fallback).
+        from matplotlib.ticker import FuncFormatter
+        ax_psd.yaxis.set_major_formatter(FuncFormatter(
+            lambda v, pos: r'$10^{%d}$' % int(round(np.log10(v))) if v > 0 else ''))
 
     # Spectrogram
     ax_spec = axes[2]
@@ -124,9 +145,9 @@ def plot_event(ev_id, label, group_desc, data, ev_start, ev_end, sr, features):
         noverlap = nperseg // 2
         f, tt, Sxx = signal.spectrogram(seg, fs=sr, nperseg=nperseg, noverlap=noverlap)
         ax_spec.pcolormesh(tt + t_seg[0], f, 10*np.log10(Sxx + 1e-12), cmap='magma')
-        ax_spec.set_xlabel('Time (s)')
-        ax_spec.set_ylabel('Frequency (Hz)')
-        ax_spec.set_title('Spectrogram (dB)')
+        ax_spec.set_xlabel('时间/s')
+        ax_spec.set_ylabel('频率/Hz')
+        ax_spec.set_title('（c） 时频谱（dB）')
         ax_spec.axvline(ev_start, color='#60a5fa', linestyle='--', linewidth=1, alpha=0.7)
         ax_spec.axvline(ev_end, color='#60a5fa', linestyle='--', linewidth=1, alpha=0.7)
 
@@ -184,8 +205,7 @@ for i, ax in enumerate(axs):
     ax.set_title(['服务台 (n=7)', '地面/正后方 (n=2)'][i])
     ax.set_xlabel('Frequency (Hz)')
     ax.set_xlim(0, 50)
-    ax.grid(alpha=0.3, which='both')
-    ax.legend(fontsize=7, ncol=2)
+    ax.legend(ncol=2)
 axs[0].set_ylabel('PSD (m²/s⁴/Hz)')
 plt.suptitle('Train-pass vibration PSD comparison', y=1.02)
 plt.tight_layout()
@@ -201,13 +221,11 @@ colors_grp = df_plot['group'].map({'service_desk': '#f0a050', 'ground_floor': '#
 axes[0].bar(df_plot['event_id'], df_plot['peak'], color=colors_grp)
 axes[0].set_ylabel('Peak |a| (m/s²)')
 axes[0].set_title('Peak vibration per event')
-axes[0].grid(alpha=0.3, axis='y')
 axes[0].tick_params(axis='x', rotation=45)
 
 axes[1].bar(df_plot['event_id'], df_plot['rms'], color=colors_grp)
 axes[1].set_ylabel('RMS |a| (m/s²)')
 axes[1].set_title('RMS vibration per event')
-axes[1].grid(alpha=0.3, axis='y')
 axes[1].tick_params(axis='x', rotation=45)
 
 # Legend

@@ -8,7 +8,7 @@
 
 Field measurements and analysis toolkit for the paper
 
-> **Train-Induced Vibration at a Bridge-Building Integrated HSR Station: A Multi-Scenario Field Measurement**
+> **Smartphone-based Multi-Source Synchronous Measurement and Analysis of Train-Induced Vibration at a Bridge-Building Integrated HSR Station**
 > LUO Mingzhang, DAN Danhui, WANG Wenzhao. *Railway Technical Standard*, 2026.
 
 The project bundles everything needed to reproduce the paper's figures and tables from raw smartphone-captured vibration and audio — a low-cost workflow intended to be re-applied at other stations with minimal barrier.
@@ -70,7 +70,7 @@ Supported by National Natural Science Foundation of China (52578234), Shanghai N
 
 本仓库是论文
 
-> **桥建合一高铁站车致振动多场景实测分析**
+> **桥建合一高铁站车致振动智能手机多源同步测量与分析**
 > 罗鸣璋，淡丹辉，王文钊. 铁道技术标准（中英文），2026.
 
 的配套实测数据与分析工具链。全部基于智能手机 + phyphox 的低成本方案实现，便于其他站房直接复现或扩展。
