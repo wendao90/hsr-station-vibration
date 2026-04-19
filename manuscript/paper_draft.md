@@ -200,7 +200,7 @@ To evaluate the vibration level and comfort in the passenger activity zones of b
 
 ## 数据与代码可用性
 
-为便于对本文结论的核验以及方法在其他车站的复现，本文所用的振动与音频原始数据、对齐标注 JSON 以及全部数据处理、特征提取和可视化代码已整理为开源仓库，发布地址为 https://github.com/tongji-vib/hsr-station-vibration ，相应数据集快照通过 Zenodo 归档并分配 DOI（10.5281/zenodo.XXXXXXX）。其中，代码采用 MIT 协议，数据采用 CC BY 4.0 协议。仓库中同时提供了本文图 3 所示交互式标注工具的在线演示版本，读者可在浏览器中直接加载本文所发布的对齐文件以查看标注过程的具体细节。
+为便于对本文结论的核验以及方法在其他车站的复现，本文所用的振动与音频原始数据、对齐标注 JSON 以及全部数据处理、特征提取和可视化代码已整理为开源仓库，发布地址为 https://github.com/wendao90/hsr-station-vibration ，相应数据集快照通过 Zenodo 归档并分配 DOI（10.5281/zenodo.19648073）。其中，代码采用 MIT 协议，数据采用 CC BY 4.0 协议。仓库中同时提供了本文图 3 所示交互式标注工具的在线演示版本，读者可在浏览器中直接加载本文所发布的对齐文件以查看标注过程的具体细节。
 
 ---
 

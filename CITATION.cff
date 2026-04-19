@@ -16,7 +16,8 @@ authors:
   - family-names: Wang
     given-names: Wenzhao
     affiliation: Tongji University
-repository-code: https://github.com/tongji-vib/hsr-station-vibration
+repository-code: https://github.com/wendao90/hsr-station-vibration
+doi: 10.5281/zenodo.19648073
 license: MIT
 license-url: https://opensource.org/licenses/MIT
 keywords:
