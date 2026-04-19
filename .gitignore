@@ -6,9 +6,8 @@ __pycache__/
 .env
 .pytest_cache/
 
-# Auto-generated docx / temp
-manuscript/manuscript.docx
-manuscript/~$*
+# Manuscript sources are NOT part of the open-source release
+manuscript/
 *.tmp
 
 # OS / editor

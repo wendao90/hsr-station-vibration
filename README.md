@@ -21,7 +21,6 @@ The project bundles everything needed to reproduce the paper's figures and table
 | `sound/` | Raw continuous audio (48 kHz m4a); **not redistributed — local use only** |
 | `vib_viz/` | Browser-based interactive tool (`align.html`) for aligning vibration, audio and field notes; also preparation scripts |
 | `analysis/` | Event extraction, ISO 2631-1 weighting, 1/3-octave band analysis, figure generation |
-| `manuscript/` | `paper_draft.md` + `make_docx.py` that builds the submission-ready Word file |
 | `scripts/` | `prepare_release.py` — builds a public `data_release/` bundle with privacy-scrubbed audio clips |
 
 ### Quick reproduction
@@ -40,9 +39,6 @@ python analysis/iso2631_and_octave.py
 
 # 3. Regenerate paper figures
 python analysis/paper_figures.py
-
-# 4. Build the manuscript
-python manuscript/make_docx.py
 ```
 
 ### Dataset overview
@@ -87,7 +83,6 @@ Supported by National Natural Science Foundation of China (52578234), Shanghai N
 | `sound/` | 连续音频（48 kHz m4a）；**本地使用，不公开分发** |
 | `vib_viz/` | 基于浏览器的振动/音频/笔记交互式标注工具（`align.html`）及预处理脚本 |
 | `analysis/` | 事件提取、ISO 2631-1 频率加权、1/3 倍频程谱、出图 |
-| `manuscript/` | 论文 Markdown 源文件及 `make_docx.py` 一键生成投稿 Word |
 | `scripts/` | `prepare_release.py` — 生成面向公众的 `data_release/`（音频已裁剪脱敏） |
 
 ### 快速复现
@@ -106,9 +101,6 @@ python analysis/iso2631_and_octave.py
 
 # 3. 重绘论文配图
 python analysis/paper_figures.py
-
-# 4. 生成稿件 docx
-python manuscript/make_docx.py
 ```
 
 ### 数据概览
