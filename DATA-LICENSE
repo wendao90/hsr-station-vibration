@@ -1,0 +1,34 @@
+Dataset License — Creative Commons Attribution 4.0 International (CC BY 4.0)
+============================================================================
+
+Scope:
+    This license applies to all files under `data_release/` (if present)
+    and any archived dataset releases (Zenodo snapshots) produced from
+    this repository, including vibration recordings, audio clips,
+    alignment JSON files, and derived event/baseline segments.
+
+    Source code in this repository is NOT covered by this license and
+    is distributed under the MIT License (see LICENSE).
+
+Summary (human-readable; full legal text at
+https://creativecommons.org/licenses/by/4.0/legalcode):
+
+    You are free to:
+      • Share — copy and redistribute the material in any medium or format.
+      • Adapt — remix, transform, and build upon the material for any
+        purpose, even commercially.
+
+    Under the following terms:
+      • Attribution — You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made. A suggested
+        citation is provided in CITATION.cff at the root of this
+        repository.
+      • No additional restrictions — You may not apply legal terms or
+        technological measures that legally restrict others from doing
+        anything the license permits.
+
+Suggested citation (also see CITATION.cff):
+
+    LUO Mingzhang, DAN Danhui, WANG Wenzhao. Huzhou Nanxun Station
+    Train-Induced Vibration Field Dataset [Dataset]. Tongji University,
+    2026. DOI: 10.5281/zenodo.XXXXXXX.

@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+title: >-
+  Huzhou Nanxun Station Train-Induced Vibration Dataset and
+  Analysis Toolkit
+message: >-
+  If you use this dataset or code, please cite both the paper
+  and the dataset/software record.
+type: software
+authors:
+  - family-names: Luo
+    given-names: Mingzhang
+    affiliation: Tongji University
+  - family-names: Dan
+    given-names: Danhui
+    affiliation: Tongji University
+  - family-names: Wang
+    given-names: Wenzhao
+    affiliation: Tongji University
+repository-code: https://github.com/tongji-vib/hsr-station-vibration
+license: MIT
+license-url: https://opensource.org/licenses/MIT
+keywords:
+  - high-speed railway
+  - bridge-building integrated station
+  - train-induced vibration
+  - vibration comfort
+  - ISO 2631-1
+  - smartphone MEMS accelerometer
+preferred-citation:
+  type: article
+  title: >-
+    Train-Induced Vibration at a Bridge-Building Integrated HSR
+    Station: A Multi-Scenario Field Measurement
+  authors:
+    - family-names: Luo
+      given-names: Mingzhang
+    - family-names: Dan
+      given-names: Danhui
+    - family-names: Wang
+      given-names: Wenzhao
+  journal: 铁道技术标准（中英文） / Railway Technical Standard
+  year: 2026
+  volume: 8

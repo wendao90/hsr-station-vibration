@@ -1,0 +1,325 @@
+{
+  "_doc": {
+    "note": "敲击索引。笔记时刻为计划时刻，实际敲击大致在该时刻±几秒内。xyz_pattern 是三轴脉冲方向指纹（+ = 正向脉冲, - = 负向脉冲, 0 = 无明显脉冲），用于自动验证匹配。",
+    "candidate_xls": "根据 xls 修改时间和时长推算的候选归属文件",
+    "candidate_audio": "该时刻落在的音频文件"
+  },
+  "knocks": [
+    {
+      "note_time": "20:03:00",
+      "description": "敲击台面",
+      "xyz_pattern": null,
+      "candidate_xls": "g (2).xls",
+      "candidate_audio": "19点59分.m4a",
+      "notes": "旁边一位女生撞了台子"
+    },
+    {
+      "note_time": "20:04:00",
+      "description": "重新敲 规律",
+      "xyz_pattern": "++-",
+      "candidate_xls": "g (2).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:05:00",
+      "description": "语音报乘3050",
+      "xyz_pattern": "--+",
+      "candidate_xls": "g (2).xls",
+      "candidate_audio": "19点59分.m4a",
+      "event_type": "announcement_knock"
+    },
+    {
+      "note_time": "20:09:00",
+      "description": "再次敲击对齐",
+      "xyz_pattern": "-0+",
+      "candidate_xls": "g (3).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:15:00",
+      "description": "非整点敲击",
+      "xyz_pattern": null,
+      "candidate_xls": "g (4).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:16:00",
+      "description": "整点敲",
+      "xyz_pattern": null,
+      "candidate_xls": "g (4).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:17:00",
+      "description": "敲击",
+      "xyz_pattern": null,
+      "candidate_xls": "g (5).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:20:00",
+      "description": "敲击",
+      "xyz_pattern": null,
+      "candidate_xls": "g (5).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:24:00",
+      "description": "敲",
+      "xyz_pattern": "--+",
+      "candidate_xls": "g (6).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:28:00",
+      "description": "敲",
+      "xyz_pattern": null,
+      "candidate_xls": "g (7).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:38:00",
+      "description": "敲",
+      "xyz_pattern": null,
+      "candidate_xls": "g (8).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:40:00",
+      "description": "敲",
+      "xyz_pattern": null,
+      "candidate_xls": "g (9).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "21:00:00",
+      "description": "跺脚",
+      "xyz_pattern": null,
+      "candidate_xls": "g (10).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "stomp"
+    },
+    {
+      "note_time": "21:01:00",
+      "description": "跺 信号没反应",
+      "xyz_pattern": null,
+      "candidate_xls": "g (10).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "stomp",
+      "notes": "信号没反应，之后改用跺的时候顺便踢一下"
+    },
+    {
+      "note_time": "21:04:00",
+      "description": "再跺踢一次",
+      "xyz_pattern": null,
+      "candidate_xls": "g (10).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "stomp_kick"
+    },
+    {
+      "note_time": "21:06:00",
+      "description": "踩踢，手随后调整",
+      "xyz_pattern": null,
+      "candidate_xls": "g (11).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "stomp_kick"
+    },
+    {
+      "note_time": "21:15:00",
+      "description": "踩踢",
+      "xyz_pattern": null,
+      "candidate_xls": "g (12).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "stomp_kick"
+    },
+    {
+      "note_time": "21:22:00",
+      "description": "踩踢",
+      "xyz_pattern": null,
+      "candidate_xls": "g (13).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "stomp_kick"
+    },
+    {
+      "note_time": "21:23:00",
+      "description": "踩踢",
+      "xyz_pattern": null,
+      "candidate_xls": "g (14).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "stomp_kick"
+    }
+  ],
+  "observed_events": [
+    {
+      "note_time": "20:06:55",
+      "description": "过车",
+      "candidate_xls": "g (2).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:10:00",
+      "description": "乘3050次列车停止检票 播报",
+      "candidate_xls": "g (3).xls",
+      "candidate_audio": "19点59分.m4a",
+      "event_type": "announcement"
+    },
+    {
+      "note_time": "20:11:06",
+      "description": "服务台开关小门(上厕所)",
+      "candidate_xls": "g (3).xls",
+      "candidate_audio": "19点59分.m4a",
+      "event_type": "door"
+    },
+    {
+      "note_time": "20:11:40",
+      "description": "第二人再次出门",
+      "candidate_xls": "g (3).xls",
+      "candidate_audio": "19点59分.m4a",
+      "event_type": "door"
+    },
+    {
+      "note_time": "20:13:13",
+      "description": "微弱过车(不确定到站还是开走)",
+      "candidate_xls": "g (3).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:15:22",
+      "description": "过车",
+      "candidate_xls": "g (4).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:18:32",
+      "description": "过车声来",
+      "candidate_xls": "g (4).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:18:38",
+      "description": "车声小出",
+      "candidate_xls": "g (4).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:22:04",
+      "description": "列车来",
+      "candidate_xls": "g (5).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:22:09",
+      "description": "列车走",
+      "candidate_xls": "g (5).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:26:35",
+      "description": "过车(晚记录1-2秒)",
+      "actual_time": "20:26:33",
+      "candidate_xls": "g (6).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:26:37",
+      "description": "走",
+      "candidate_xls": "g (6).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:28:51",
+      "description": "(事件)",
+      "candidate_xls": "g (7).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:28:54",
+      "description": "(事件)",
+      "candidate_xls": "g (7).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:38:49",
+      "description": "插插座 同时车来",
+      "candidate_xls": "g (8).xls",
+      "candidate_audio": "19点59分.m4a",
+      "event_type": "plug_and_train"
+    },
+    {
+      "note_time": "20:38:53",
+      "description": "(事件)",
+      "candidate_xls": "g (8).xls",
+      "candidate_audio": "19点59分.m4a"
+    },
+    {
+      "note_time": "20:41:40",
+      "description": "拔插座",
+      "candidate_xls": "g (9).xls",
+      "candidate_audio": "19点59分.m4a",
+      "event_type": "plug"
+    },
+    {
+      "note_time": "20:48:21",
+      "description": "过了一辆(声音没录上)",
+      "candidate_xls": "g (9).xls",
+      "candidate_audio": "19点59分.m4a",
+      "notes": "声音未录上"
+    },
+    {
+      "note_time": "21:02:20",
+      "description": "有列车声音 感觉很微弱",
+      "candidate_xls": "g (10).xls",
+      "candidate_audio": "20点57分.m4a"
+    },
+    {
+      "note_time": "21:04:00",
+      "description": "微弱车声",
+      "candidate_xls": "g (10).xls",
+      "candidate_audio": "20点57分.m4a"
+    },
+    {
+      "note_time": "21:04:47",
+      "description": "强车声",
+      "candidate_xls": "g (10).xls",
+      "candidate_audio": "20点57分.m4a"
+    },
+    {
+      "note_time": "21:06:37",
+      "description": "微弱车声",
+      "candidate_xls": "g (11).xls",
+      "candidate_audio": "20点57分.m4a"
+    },
+    {
+      "note_time": "21:07:27",
+      "description": "G1416停止检票播报",
+      "candidate_xls": "g (11).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "announcement"
+    },
+    {
+      "note_time": "21:09:47",
+      "description": "微弱车声",
+      "candidate_xls": "g (11).xls",
+      "candidate_audio": "20点57分.m4a"
+    },
+    {
+      "note_time": "21:14:00",
+      "description": "大厅的垃圾车过",
+      "candidate_xls": "g (12).xls",
+      "candidate_audio": "20点57分.m4a",
+      "event_type": "garbage_cart"
+    },
+    {
+      "note_time": "21:21:17",
+      "description": "过车",
+      "candidate_xls": "g (13).xls",
+      "candidate_audio": "20点57分.m4a"
+    },
+    {
+      "note_time": "21:21:22",
+      "description": "过车",
+      "candidate_xls": "g (13).xls",
+      "candidate_audio": "20点57分.m4a"
+    }
+  ]
+}

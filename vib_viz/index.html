@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>振动数据可视化 - 多数据集</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background: #140e0a;
+    color: #ede0d4;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #221a12 0%, #120d08 100%);
+    padding: 24px 32px;
+    border-bottom: 1px solid #2a2118;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #f0a050, #e8a060);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header .meta {
+    font-size: 13px;
+    color: #a08a70;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta span { display: flex; align-items: center; gap: 6px; }
+  .meta .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .header-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+  /* Dataset selector */
+  .ds-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ds-selector label {
+    font-size: 13px;
+    color: #a08a70;
+    white-space: nowrap;
+  }
+  .ds-selector select {
+    background: #1a1410;
+    color: #ede0d4;
+    border: 1px solid #3a2d1e;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 200px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .ds-selector select:focus { border-color: #d4873a; }
+  .ds-selector select option { background: #1a1410; color: #ede0d4; }
+  .ds-notes {
+    font-size: 12px;
+    color: #a08a70;
+    padding: 8px 32px;
+    background: #120d08;
+    border-bottom: 1px solid #2a2118;
+  }
+  .ds-notes em { color: #e8a060; font-style: normal; }
+
+  .container { padding: 20px 24px; }
+
+  /* Event timeline strip */
+  .timeline-strip {
+    background: #1a1410;
+    border: 1px solid #2a2118;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .timeline-strip h3 {
+    font-size: 14px;
+    color: #a08a70;
+    white-space: nowrap;
+  }
+  .event-tags { display: flex; gap: 12px; flex-wrap: wrap; }
+  .event-tag {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .event-tag:hover { transform: translateY(-1px); filter: brightness(1.2); }
+  .event-tag.knock { background: rgba(251,191,36,0.15); color: #fbbf24; border-color: rgba(251,191,36,0.3); }
+  .event-tag.train_arrive { background: rgba(52,211,153,0.15); color: #34d399; border-color: rgba(52,211,153,0.3); }
+  .event-tag.train_depart { background: rgba(248,113,113,0.15); color: #f87171; border-color: rgba(248,113,113,0.3); }
+  .event-tag.custom { background: rgba(232,160,96,0.15); color: #e8a060; border-color: rgba(232,160,96,0.3); }
+  .event-tag .event-time { font-weight: 600; }
+  .no-annotations { font-size: 13px; color: #5a4a38; font-style: italic; }
+
+  /* Charts */
+  .chart-panel {
+    background: #1a1410;
+    border: 1px solid #2a2118;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .chart-panel .panel-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid #2a2118;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .panel-header h2 { font-size: 15px; font-weight: 500; }
+  .chart-container { width: 100%; height: 300px; }
+  .chart-container.tall { height: 220px; }
+
+  /* Axis selector buttons */
+  .axis-btns { display: flex; gap: 8px; }
+  .axis-btn {
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid #3a2d1e;
+    background: transparent;
+    color: #a08a70;
+    transition: all 0.2s;
+  }
+  .axis-btn.active { background: #3a2a18; color: #f0a050; border-color: #d4873a; }
+
+  /* Audio waveform panel */
+  .audio-panel {
+    background: #1a1410;
+    border: 1px solid #2a2118;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .audio-panel .panel-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid #2a2118;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .audio-panel .panel-header h2 { font-size: 15px; font-weight: 500; }
+  .waveform-wrap {
+    position: relative;
+    height: 140px;
+    cursor: crosshair;
+    background: #100c08;
+  }
+  .waveform-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  /* Playback cursor */
+  .waveform-cursor {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 1.5px;
+    background: #ef4444;
+    pointer-events: none;
+    z-index: 10;
+    left: 0;
+    box-shadow: 0 0 6px rgba(220,80,60,0.6);
+  }
+  .waveform-cursor::after {
+    content: '';
+    position: absolute;
+    top: -3px; left: -4px;
+    width: 9px; height: 9px;
+    background: #ef4444;
+    border-radius: 50%;
+  }
+  /* Time ruler */
+  .time-ruler {
+    position: relative;
+    height: 22px;
+    background: #120d08;
+    border-bottom: 1px solid #2a2118;
+    overflow: hidden;
+  }
+  .time-ruler canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  /* Center line label */
+  .waveform-center-label {
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 9px;
+    color: #5a4a38;
+    pointer-events: none;
+    z-index: 5;
+  }
+  /* dB scale labels */
+  .waveform-db-labels {
+    position: absolute;
+    right: 6px;
+    top: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 5;
+    padding: 4px 0;
+  }
+  .waveform-db-labels span {
+    font-size: 9px;
+    color: #5a4a38;
+    line-height: 1;
+  }
+  /* Loading overlay */
+  .waveform-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(11,15,26,0.9);
+    z-index: 20;
+    gap: 10px;
+    font-size: 13px;
+    color: #a08a70;
+  }
+  .waveform-loading .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid #3a2d1e;
+    border-top-color: #f0a050;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  /* Audio control bar */
+  .audio-control-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    border-top: 1px solid #2a2118;
+    background: #1a1410;
+    flex-wrap: wrap;
+  }
+  .play-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4873a, #c07030);
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+  .play-btn:hover { transform: scale(1.08); }
+  .time-display {
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .time-display .vib-time { color: #e8a060; }
+  .time-display .real-time { color: #f0a050; }
+  .time-display .sep { color: #3a2d1e; margin: 0 8px; }
+  .sync-info {
+    font-size: 11px;
+    color: #5a4a38;
+    margin-left: auto;
+  }
+
+  /* Stats cards */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: #1a1410;
+    border: 1px solid #2a2118;
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+  .stat-card .label { font-size: 12px; color: #556; margin-bottom: 6px; }
+  .stat-card .value { font-size: 22px; font-weight: 600; }
+  .stat-card .unit { font-size: 12px; color: #556; margin-left: 4px; }
+  .stat-card.highlight .value { color: #fbbf24; }
+
+  /* Three-axis grid */
+  .three-axis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 900px) { .three-axis-grid { grid-template-columns: 1fr; } }
+
+  /* Cursor indicator line */
+  .cursor-time-label {
+    position: fixed;
+    top: 10px;
+    right: 24px;
+    background: rgba(212,135,58,0.2);
+    color: #f0a050;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .cursor-time-label.visible { opacity: 1; }
+
+  /* Context menu */
+  .ctx-menu {
+    position: fixed;
+    background: #251c14;
+    border: 1px solid #3a2d1e;
+    border-radius: 8px;
+    padding: 4px 0;
+    min-width: 180px;
+    z-index: 1000;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    display: none;
+  }
+  .ctx-menu.visible { display: block; }
+  .ctx-menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ede0d4;
+  }
+  .ctx-menu-item:hover { background: rgba(212,135,58,0.15); }
+  .ctx-menu-item.danger { color: #f87171; }
+  .ctx-menu-item.danger:hover { background: rgba(248,113,113,0.12); }
+  .ctx-menu-sep { height: 1px; background: #3a2d1e; margin: 4px 0; }
+
+  /* Annotation list panel */
+  .ann-panel {
+    background: #1a1410;
+    border: 1px solid #2a2118;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .ann-panel .panel-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid #2a2118;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ann-panel .panel-header h2 { font-size: 15px; font-weight: 500; }
+  .ann-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ann-btn {
+    padding: 5px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid #3a2d1e;
+    background: transparent;
+    color: #a08a70;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .ann-btn:hover { border-color: #d4873a; color: #f0a050; }
+  .ann-btn.primary { background: #3a2a18; color: #f0a050; border-color: #d4873a; }
+  .ann-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .ann-list::-webkit-scrollbar { width: 6px; }
+  .ann-list::-webkit-scrollbar-track { background: #120d08; }
+  .ann-list::-webkit-scrollbar-thumb { background: #3a2d1e; border-radius: 3px; }
+  .ann-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    border-bottom: 1px solid #1e1610;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 13px;
+  }
+  .ann-row:hover { background: rgba(212,135,58,0.06); }
+  .ann-row:last-child { border-bottom: none; }
+  .ann-row .ann-icon { font-size: 16px; flex-shrink: 0; }
+  .ann-row .ann-label { flex: 1; color: #ede0d4; }
+  .ann-row .ann-time { color: #a08a70; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ann-row .ann-delete {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #556;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .ann-row .ann-delete:hover { background: rgba(248,113,113,0.15); color: #f87171; border-color: rgba(248,113,113,0.3); }
+  .ann-empty {
+    padding: 24px 20px;
+    text-align: center;
+    color: #5a4a38;
+    font-size: 13px;
+    font-style: italic;
+  }
+  /* Hidden file input */
+  .hidden-input { display: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>📊 振动传感器数据可视化</h1>
+    <div class="ds-selector">
+      <label>数据集:</label>
+      <select id="dsSelect" onchange="onDatasetChange(this.value)"></select>
+    </div>
+  </div>
+  <div class="meta" id="headerMeta">
+    <span><span class="dot" style="background:#d4873a"></span> <span id="metaDate">--</span></span>
+    <span><span class="dot" style="background:#34d399"></span> 采样率: ~100 Hz</span>
+    <span><span class="dot" style="background:#e8a060"></span> 数据点: <span id="metaPoints">--</span></span>
+    <span><span class="dot" style="background:#fbbf24"></span> 时长: <span id="metaDuration">--</span></span>
+  </div>
+</div>
+<div class="ds-notes" id="dsNotes" style="display:none;"></div>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card highlight">
+      <div class="label">最大绝对加速度</div>
+      <div class="value" id="statMaxAcc">--<span class="unit">m/s²</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">平均绝对加速度</div>
+      <div class="value" id="statMeanAcc">--<span class="unit">m/s²</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">数据起始时刻</div>
+      <div class="value" style="font-size:18px;" id="statStartTime">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">数据结束时刻</div>
+      <div class="value" style="font-size:18px;" id="statEndTime">--</div>
+    </div>
+  </div>
+
+  <!-- Event timeline -->
+  <div class="timeline-strip">
+    <h3>📌 事件标记</h3>
+    <div class="event-tags" id="eventTags">
+      <span class="no-annotations">右键图表或波形添加标注</span>
+    </div>
+  </div>
+
+  <!-- Audio waveform -->
+  <div class="audio-panel">
+    <div class="panel-header">
+      <h2>🔊 录音波形 (振动数据对应片段)</h2>
+    </div>
+    <div class="time-ruler"><canvas id="rulerCanvas"></canvas></div>
+    <div class="waveform-wrap" id="waveformWrap">
+      <canvas id="waveformCanvas"></canvas>
+      <div class="waveform-cursor" id="waveformCursor"></div>
+      <div class="waveform-center-label">0</div>
+      <div class="waveform-db-labels">
+        <span>+1.0</span><span>+0.5</span><span>0</span><span>-0.5</span><span>-1.0</span>
+      </div>
+      <div class="waveform-loading" id="waveformLoading">
+        <div class="spinner"></div>
+        <span>正在加载波形...</span>
+      </div>
+    </div>
+    <div class="audio-control-bar">
+      <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+      <div class="time-display">
+        <span class="vib-time" id="vibTimeDisplay">t = 0.00s</span>
+        <span class="sep">|</span>
+        <span class="real-time" id="realTimeDisplay">--:--:--</span>
+      </div>
+      <div class="sync-info">点击波形或事件标签跳转 | 右键添加标注</div>
+    </div>
+  </div>
+
+  <!-- Main chart: Absolute acceleration -->
+  <div class="chart-panel">
+    <div class="panel-header">
+      <h2>绝对加速度 (Absolute Acceleration)</h2>
+      <div class="axis-btns">
+        <button class="axis-btn active" onclick="toggleSeries('abs')">|a|</button>
+        <button class="axis-btn" onclick="toggleSeries('x')">X</button>
+        <button class="axis-btn" onclick="toggleSeries('y')">Y</button>
+        <button class="axis-btn" onclick="toggleSeries('z')">Z</button>
+      </div>
+    </div>
+    <div class="chart-container" id="mainChart"></div>
+  </div>
+
+  <!-- Three axis charts -->
+  <div class="three-axis-grid">
+    <div class="chart-panel">
+      <div class="panel-header"><h2 style="color:#f87171">X 轴加速度</h2></div>
+      <div class="chart-container tall" id="chartX"></div>
+    </div>
+    <div class="chart-panel">
+      <div class="panel-header"><h2 style="color:#34d399">Y 轴加速度</h2></div>
+      <div class="chart-container tall" id="chartY"></div>
+    </div>
+    <div class="chart-panel">
+      <div class="panel-header"><h2 style="color:#f0a050">Z 轴加速度</h2></div>
+      <div class="chart-container tall" id="chartZ"></div>
+    </div>
+  </div>
+
+  <!-- Annotation list panel -->
+  <div class="ann-panel">
+    <div class="panel-header">
+      <h2>📋 标注管理</h2>
+      <div class="ann-actions">
+        <button class="ann-btn primary" onclick="exportAnnotations()">导出标注 JSON</button>
+        <button class="ann-btn" onclick="document.getElementById('importInput').click()">导入标注</button>
+        <input type="file" id="importInput" class="hidden-input" accept=".json" onchange="importAnnotations(this.files[0])">
+      </div>
+    </div>
+    <div class="ann-list" id="annList">
+      <div class="ann-empty">暂无标注。右键图表或波形添加标注。</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="cursor-time-label" id="cursorLabel"></div>
+
+<!-- Context menu -->
+<div class="ctx-menu" id="ctxMenu">
+  <div class="ctx-menu-item" onclick="ctxAddAnnotation('knock')">🔨 标记敲击</div>
+  <div class="ctx-menu-item" onclick="ctxAddAnnotation('train_arrive')">🚄 标记列车到达</div>
+  <div class="ctx-menu-item" onclick="ctxAddAnnotation('train_depart')">🚄 标记列车离开</div>
+  <div class="ctx-menu-sep"></div>
+  <div class="ctx-menu-item" onclick="ctxAddAnnotation('custom')">📝 自定义标注...</div>
+  <div class="ctx-menu-sep ctx-delete-sep" style="display:none"></div>
+  <div class="ctx-menu-item danger ctx-delete-item" style="display:none" onclick="ctxDeleteAnnotation()">❌ 删除此标注</div>
+</div>
+
+<script>
+// ============================================================
+// Global state
+// ============================================================
+let datasetsConfig = null;    // full datasets.json
+let currentDataset = null;    // current dataset config object
+let vibData = null;           // {time, ax, ay, az, abs_acc}
+let waveformPeaks = null;     // {pos, neg, numBins, duration, sampleRate}
+let annotations = [];         // annotation array for current dataset
+let audioBuffer = null;       // decoded AudioBuffer
+let VIB_DURATION = 196;       // computed from data
+let AUDIO_OFFSET = 0;         // vibStartTime - audioStartTime in seconds
+let DATA_START_EPOCH = 0;     // vibStartTime as epoch seconds
+
+let mainChart = null, chartX = null, chartY = null, chartZ = null;
+
+// Audio playback state
+const playBtn = document.getElementById('playBtn');
+const vibTimeDisplay = document.getElementById('vibTimeDisplay');
+const realTimeDisplayEl = document.getElementById('realTimeDisplay');
+const waveformCanvas = document.getElementById('waveformCanvas');
+const waveformWrap = document.getElementById('waveformWrap');
+const waveformCursor = document.getElementById('waveformCursor');
+const waveformLoading = document.getElementById('waveformLoading');
+const rulerCanvas = document.getElementById('rulerCanvas');
+
+let cursorVibT = 0;
+let animFrameId = null;
+let audioCtx = null;
+let sourceNode = null;
+let isPlaying = false;
+let playStartTime = 0;
+let playStartOffset = 0;
+let playGeneration = 0;
+
+// Context menu state
+let ctxVibTime = 0;
+let ctxNearAnnotation = null;
+const ctxMenu = document.getElementById('ctxMenu');
+
+// Annotation type config
+const ANN_TYPES = {
+  knock:        { icon: '🔨', label: '敲击',     color: '#fbbf24', cssClass: 'knock' },
+  train_arrive: { icon: '🚄', label: '列车到达', color: '#34d399', cssClass: 'train_arrive' },
+  train_depart: { icon: '🚄', label: '列车离开', color: '#f87171', cssClass: 'train_depart' },
+  custom:       { icon: '📝', label: '自定义',   color: '#e8a060', cssClass: 'custom' },
+};
+
+// ============================================================
+// Initialization
+// ============================================================
+async function init() {
+  try {
+    const resp = await fetch('datasets.json');
+    datasetsConfig = await resp.json();
+  } catch (e) {
+    console.error('Failed to load datasets.json:', e);
+    return;
+  }
+
+  // Populate selector
+  const sel = document.getElementById('dsSelect');
+  datasetsConfig.datasets.forEach(ds => {
+    const opt = document.createElement('option');
+    opt.value = ds.id;
+    opt.textContent = ds.name;
+    sel.appendChild(opt);
+  });
+
+  // Load first dataset
+  if (datasetsConfig.datasets.length > 0) {
+    await loadDataset(datasetsConfig.datasets[0].id);
+  }
+}
+
+// ============================================================
+// Dataset loading
+// ============================================================
+async function onDatasetChange(dsId) {
+  await loadDataset(dsId);
+}
+
+async function loadDataset(dsId) {
+  const ds = datasetsConfig.datasets.find(d => d.id === dsId);
+  if (!ds) return;
+  currentDataset = ds;
+
+  // Update selector value
+  document.getElementById('dsSelect').value = dsId;
+
+  // Show notes
+  const notesEl = document.getElementById('dsNotes');
+  if (ds.notes) {
+    notesEl.style.display = 'block';
+    notesEl.innerHTML = '📝 <em>' + ds.name + '</em>: ' + escapeHtml(ds.notes);
+  } else {
+    notesEl.style.display = 'none';
+  }
+
+  // Stop any current playback
+  stopPlayback();
+  playBtn.textContent = '\u25B6';
+  cursorVibT = 0;
+
+  // Show loading on waveform
+  waveformLoading.style.display = 'flex';
+  waveformLoading.innerHTML = '<div class="spinner"></div><span>正在加载数据...</span>';
+
+  // Compute time offsets
+  const vibStart = new Date(ds.vibStartTime);
+  const audioStart = new Date(ds.audioStartTime);
+  DATA_START_EPOCH = vibStart.getTime() / 1000;
+  AUDIO_OFFSET = (vibStart - audioStart) / 1000;
+
+  const basePath = 'datasets/' + dsId + '/';
+
+  try {
+    // Load data files in parallel
+    const [dataResp, peaksResp, annResp] = await Promise.all([
+      fetch(basePath + 'data.json').then(r => r.json()),
+      fetch(basePath + 'waveform_peaks.json').then(r => r.json()),
+      loadAnnotations(dsId, basePath),
+    ]);
+
+    vibData = dataResp;
+    VIB_DURATION = vibData.time[vibData.time.length - 1];
+
+    waveformPeaks = {
+      pos: new Float32Array(peaksResp.pos),
+      neg: new Float32Array(peaksResp.neg),
+      numBins: peaksResp.numBins,
+    };
+
+    annotations = annResp;
+
+    // Update header meta
+    updateHeaderMeta();
+    updateStats();
+    renderEventTags();
+    renderAnnotationList();
+
+    // Draw waveform
+    waveformLoading.style.display = 'none';
+    drawWaveform();
+    drawRuler();
+    setCursorPosition(0);
+
+    // Init charts
+    initCharts();
+
+    // Load audio (non-blocking)
+    loadAudioBuffer(basePath + 'audio_segment.wav');
+
+  } catch (e) {
+    console.error('Failed to load dataset:', e);
+    waveformLoading.innerHTML = '<span style="color:#f87171">数据加载失败: ' + escapeHtml(e.message) + '</span>';
+  }
+}
+
+async function loadAnnotations(dsId, basePath) {
+  // Try localStorage first
+  const lsKey = 'vib_ann_' + dsId;
+  const stored = localStorage.getItem(lsKey);
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch (e) { /* fall through */ }
+  }
+
+  // Fall back to file
+  try {
+    const resp = await fetch(basePath + 'annotations.json');
+    const data = await resp.json();
+    if (data.annotations && data.annotations.length > 0) {
+      return data.annotations;
+    }
+  } catch (e) { /* no annotations file */ }
+
+  return [];
+}
+
+// ============================================================
+// Header & stats
+// ============================================================
+function updateHeaderMeta() {
+  if (!vibData || !currentDataset) return;
+  const vibStart = new Date(currentDataset.vibStartTime);
+  const dateStr = vibStart.toISOString().split('T')[0];
+  document.getElementById('metaDate').textContent = '采集日期: ' + dateStr;
+  document.getElementById('metaPoints').textContent = vibData.time.length.toLocaleString();
+  document.getElementById('metaDuration').textContent = '~' + VIB_DURATION.toFixed(1) + ' s';
+}
+
+function updateStats() {
+  if (!vibData || !currentDataset) return;
+  const absAcc = vibData.abs_acc;
+  let maxAcc = 0, sumAcc = 0;
+  for (let i = 0; i < absAcc.length; i++) {
+    if (absAcc[i] > maxAcc) maxAcc = absAcc[i];
+    sumAcc += absAcc[i];
+  }
+  const meanAcc = sumAcc / absAcc.length;
+
+  document.getElementById('statMaxAcc').innerHTML = maxAcc.toFixed(3) + '<span class="unit">m/s\u00B2</span>';
+  document.getElementById('statMeanAcc').innerHTML = meanAcc.toFixed(3) + '<span class="unit">m/s\u00B2</span>';
+
+  const vibStart = new Date(currentDataset.vibStartTime);
+  const vibEnd = new Date(vibStart.getTime() + VIB_DURATION * 1000);
+  document.getElementById('statStartTime').textContent = formatClockTime(vibStart);
+  document.getElementById('statEndTime').textContent = formatClockTime(vibEnd);
+}
+
+function formatClockTime(date) {
+  const h = String(date.getHours()).padStart(2, '0');
+  const m = String(date.getMinutes()).padStart(2, '0');
+  const s = String(date.getSeconds()).padStart(2, '0');
+  return h + ':' + m + ':' + s;
+}
+
+// ============================================================
+// ECharts
+// ============================================================
+function makeMarkLines() {
+  return annotations.map(ann => {
+    const tc = ANN_TYPES[ann.type] || ANN_TYPES.custom;
+    const c = ann.color || tc.color;
+    return {
+      xAxis: ann.vibTime,
+      label: {
+        formatter: tc.icon + ' ' + (ann.label || tc.label) + '\n' + vibTimeToRealStr(ann.vibTime),
+        position: 'end',
+        fontSize: 11,
+        color: c,
+        padding: [2, 6],
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        borderRadius: 4,
+      },
+      lineStyle: { color: c, type: 'dashed', width: 1.5, opacity: 0.8 },
+    };
+  });
+}
+
+function makeMarkAreas() {
+  // Find paired arrive/depart annotations
+  const areas = [];
+  const arrives = annotations.filter(a => a.type === 'train_arrive').sort((a, b) => a.vibTime - b.vibTime);
+  const departs = annotations.filter(a => a.type === 'train_depart').sort((a, b) => a.vibTime - b.vibTime);
+  arrives.forEach(arr => {
+    // find nearest depart after this arrive
+    const dep = departs.find(d => d.vibTime > arr.vibTime);
+    if (dep) {
+      areas.push([
+        { xAxis: arr.vibTime, itemStyle: { color: 'rgba(240,160,80,0.08)' } },
+        { xAxis: dep.vibTime }
+      ]);
+    }
+  });
+  return areas;
+}
+
+function vibTimeToRealStr(vibT) {
+  const epochSec = DATA_START_EPOCH + vibT;
+  const d = new Date(epochSec * 1000);
+  const h = String(d.getHours()).padStart(2, '0');
+  const m = String(d.getMinutes()).padStart(2, '0');
+  const s = String(d.getSeconds()).padStart(2, '0');
+  const ms = String(Math.floor((vibT % 1) * 10));
+  return h + ':' + m + ':' + s + '.' + ms;
+}
+
+function baseOption(title, seriesData, color, yLabel) {
+  return {
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'rgba(17,24,39,0.95)',
+      borderColor: '#2a2118',
+      textStyle: { color: '#ede0d4', fontSize: 12 },
+      formatter: function(params) {
+        const p = params[0];
+        const t = p.value[0];
+        const realStr = vibTimeToRealStr(t);
+        var html = '<div style="font-size:11px;color:#a08a70;margin-bottom:4px">t = ' + t.toFixed(2) + 's | ' + realStr + '</div>';
+        params.forEach(function(pp) {
+          html += '<div>' + pp.marker + ' ' + pp.seriesName + ': <b>' + pp.value[1].toFixed(5) + '</b> m/s\u00B2</div>';
+        });
+        return html;
+      }
+    },
+    grid: { left: 60, right: 30, top: 30, bottom: 40 },
+    xAxis: {
+      type: 'value',
+      name: '时间 (s)',
+      nameTextStyle: { color: '#556', fontSize: 11 },
+      axisLine: { lineStyle: { color: '#2a2118' } },
+      axisTick: { lineStyle: { color: '#2a2118' } },
+      axisLabel: { color: '#556', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#1e1610' } },
+      min: 0, max: VIB_DURATION,
+    },
+    yAxis: {
+      type: 'value',
+      name: yLabel || 'm/s\u00B2',
+      nameTextStyle: { color: '#556', fontSize: 11 },
+      axisLine: { lineStyle: { color: '#2a2118' } },
+      axisTick: { lineStyle: { color: '#2a2118' } },
+      axisLabel: { color: '#556', fontSize: 11, formatter: function(v) { return v.toFixed(2); } },
+      splitLine: { lineStyle: { color: '#1e1610' } },
+    },
+    dataZoom: [
+      { type: 'inside', xAxisIndex: 0 },
+      { type: 'slider', xAxisIndex: 0, height: 20, bottom: 8,
+        borderColor: '#2a2118', backgroundColor: '#120d08',
+        fillerColor: 'rgba(212,135,58,0.15)',
+        handleStyle: { color: '#d4873a' },
+        textStyle: { color: '#556', fontSize: 10 },
+        dataBackground: {
+          lineStyle: { color: '#3a2d1e' },
+          areaStyle: { color: 'rgba(212,135,58,0.08)' }
+        }
+      }
+    ],
+    series: seriesData,
+  };
+}
+
+function initCharts() {
+  if (!vibData) return;
+  const d = vibData;
+  const timeAbs = d.time.map(function(t, i) { return [t, d.abs_acc[i]]; });
+  const timeX = d.time.map(function(t, i) { return [t, d.ax[i]]; });
+  const timeY = d.time.map(function(t, i) { return [t, d.ay[i]]; });
+  const timeZ = d.time.map(function(t, i) { return [t, d.az[i]]; });
+
+  // Dispose old instances
+  if (mainChart) { mainChart.dispose(); mainChart = null; }
+  if (chartX) { chartX.dispose(); chartX = null; }
+  if (chartY) { chartY.dispose(); chartY = null; }
+  if (chartZ) { chartZ.dispose(); chartZ = null; }
+
+  // Main chart
+  mainChart = echarts.init(document.getElementById('mainChart'));
+  var mainOpt = baseOption('绝对加速度', [
+    {
+      name: '|a|', type: 'line', data: timeAbs, symbol: 'none',
+      lineStyle: { width: 1, color: '#e8a060' },
+      areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[
+        { offset: 0, color: 'rgba(232,160,96,0.3)' },
+        { offset: 1, color: 'rgba(232,160,96,0.02)' }
+      ])},
+      markLine: { silent: true, symbol: 'none', data: makeMarkLines() },
+      markArea: { silent: true, data: makeMarkAreas() },
+      large: true, largeThreshold: 1000, sampling: 'lttb',
+    },
+    {
+      name: 'X', type: 'line', data: timeX, symbol: 'none',
+      lineStyle: { width: 1, color: '#f87171' }, large: true, sampling: 'lttb',
+      emphasis: { disabled: true }, show: false,
+    },
+    {
+      name: 'Y', type: 'line', data: timeY, symbol: 'none',
+      lineStyle: { width: 1, color: '#34d399' }, large: true, sampling: 'lttb',
+      emphasis: { disabled: true }, show: false,
+    },
+    {
+      name: 'Z', type: 'line', data: timeZ, symbol: 'none',
+      lineStyle: { width: 1, color: '#f0a050' }, large: true, sampling: 'lttb',
+      emphasis: { disabled: true }, show: false,
+    },
+  ]);
+  mainOpt.legend = { show: false };
+  mainOpt.series[1].lineStyle.opacity = 0;
+  mainOpt.series[2].lineStyle.opacity = 0;
+  mainOpt.series[3].lineStyle.opacity = 0;
+  mainChart.setOption(mainOpt);
+
+  // Individual axis charts
+  chartX = echarts.init(document.getElementById('chartX'));
+  chartX.setOption(baseOption('X', [{
+    name: 'X', type: 'line', data: timeX, symbol: 'none',
+    lineStyle: { width: 1, color: '#f87171' },
+    areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[
+      { offset: 0, color: 'rgba(248,113,113,0.2)' }, { offset: 1, color: 'rgba(248,113,113,0.01)' }
+    ])},
+    markLine: { silent: true, symbol: 'none', data: makeMarkLines() },
+    large: true, sampling: 'lttb',
+  }]));
+
+  chartY = echarts.init(document.getElementById('chartY'));
+  chartY.setOption(baseOption('Y', [{
+    name: 'Y', type: 'line', data: timeY, symbol: 'none',
+    lineStyle: { width: 1, color: '#34d399' },
+    areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[
+      { offset: 0, color: 'rgba(52,211,153,0.2)' }, { offset: 1, color: 'rgba(52,211,153,0.01)' }
+    ])},
+    markLine: { silent: true, symbol: 'none', data: makeMarkLines() },
+    large: true, sampling: 'lttb',
+  }]));
+
+  chartZ = echarts.init(document.getElementById('chartZ'));
+  chartZ.setOption(baseOption('Z', [{
+    name: 'Z', type: 'line', data: timeZ, symbol: 'none',
+    lineStyle: { width: 1, color: '#f0a050' },
+    areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[
+      { offset: 0, color: 'rgba(240,160,80,0.2)' }, { offset: 1, color: 'rgba(240,160,80,0.01)' }
+    ])},
+    markLine: { silent: true, symbol: 'none', data: makeMarkLines() },
+    large: true, sampling: 'lttb',
+  }]));
+
+  // Link zoom across all charts
+  var allCharts = [mainChart, chartX, chartY, chartZ];
+  allCharts.forEach(function(c) {
+    c.on('dataZoom', function(e) {
+      var opt = c.getOption();
+      var dz = opt.dataZoom[0];
+      allCharts.forEach(function(other) {
+        if (other !== c) {
+          other.dispatchAction({ type: 'dataZoom', start: dz.start, end: dz.end });
+        }
+      });
+    });
+  });
+
+  // Reset series visibility state
+  seriesVisible = { abs: true, x: false, y: false, z: false };
+  var btns = document.querySelectorAll('.axis-btn');
+  var keys = ['abs', 'x', 'y', 'z'];
+  keys.forEach(function(k, i) {
+    btns[i].classList.toggle('active', seriesVisible[k]);
+  });
+
+  // Right-click on main chart for context menu
+  mainChart.getZr().on('contextmenu', function(e) {
+    e.event.preventDefault();
+    var pointInPixel = [e.offsetX, e.offsetY];
+    if (mainChart.containPixel('grid', pointInPixel)) {
+      var coordPoint = mainChart.convertFromPixel('grid', pointInPixel);
+      showContextMenu(e.event.clientX || e.event.x, e.event.clientY || e.event.y, coordPoint[0]);
+    }
+  });
+
+  window.addEventListener('resize', function() {
+    if (mainChart) mainChart.resize();
+    if (chartX) chartX.resize();
+    if (chartY) chartY.resize();
+    if (chartZ) chartZ.resize();
+  });
+}
+
+// ============================================================
+// Toggle series visibility on main chart
+// ============================================================
+var seriesVisible = { abs: true, x: false, y: false, z: false };
+var seriesIdx = { abs: 0, x: 1, y: 2, z: 3 };
+
+function toggleSeries(key) {
+  seriesVisible[key] = !seriesVisible[key];
+  var btns = document.querySelectorAll('.axis-btn');
+  var keys = ['abs', 'x', 'y', 'z'];
+  keys.forEach(function(k, i) {
+    btns[i].classList.toggle('active', seriesVisible[k]);
+  });
+  var seriesOpt = [];
+  keys.forEach(function(k) {
+    seriesOpt.push({
+      lineStyle: { opacity: seriesVisible[k] ? 1 : 0 },
+      areaStyle: k === 'abs' && seriesVisible[k] ? {
+        color: new echarts.graphic.LinearGradient(0,0,0,1,[
+          { offset: 0, color: 'rgba(232,160,96,0.3)' },
+          { offset: 1, color: 'rgba(232,160,96,0.02)' }
+        ])
+      } : { opacity: 0 },
+    });
+  });
+  mainChart.setOption({ series: seriesOpt });
+}
+
+// ============================================================
+// Waveform drawing
+// ============================================================
+function drawWaveform() {
+  if (!waveformPeaks) return;
+  var wrap = waveformCanvas.parentElement;
+  var dpr = window.devicePixelRatio || 1;
+  var w = wrap.offsetWidth;
+  var h = wrap.offsetHeight;
+  waveformCanvas.width = w * dpr;
+  waveformCanvas.height = h * dpr;
+  var ctx = waveformCanvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  var pos = waveformPeaks.pos;
+  var neg = waveformPeaks.neg;
+  var numBins = waveformPeaks.numBins;
+  var midY = h / 2;
+  var ampScale = midY * 0.92;
+
+  // Background grid lines
+  ctx.strokeStyle = '#1a2235';
+  ctx.lineWidth = 0.5;
+  [0.25, 0.5, 0.75].forEach(function(frac) {
+    var y = frac * h;
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  });
+
+  // Center line
+  ctx.strokeStyle = '#3a2d1e';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, midY); ctx.lineTo(w, midY); ctx.stroke();
+
+  // Waveform fill
+  var gradient = ctx.createLinearGradient(0, 0, 0, h);
+  gradient.addColorStop(0, 'rgba(240,160,80,0.9)');
+  gradient.addColorStop(0.35, 'rgba(212,135,58,0.7)');
+  gradient.addColorStop(0.5, 'rgba(192,112,48,0.5)');
+  gradient.addColorStop(0.65, 'rgba(212,135,58,0.7)');
+  gradient.addColorStop(1, 'rgba(240,160,80,0.9)');
+
+  var binW = w / numBins;
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  for (var i = 0; i < numBins; i++) {
+    var x = i * binW;
+    var yTop = midY - pos[i] * ampScale;
+    if (i === 0) ctx.moveTo(x, yTop); else ctx.lineTo(x, yTop);
+  }
+  for (var i2 = numBins - 1; i2 >= 0; i2--) {
+    var x2 = i2 * binW;
+    var yBot = midY - neg[i2] * ampScale;
+    ctx.lineTo(x2, yBot);
+  }
+  ctx.closePath();
+  ctx.fill();
+
+  // Waveform outline
+  ctx.strokeStyle = 'rgba(240,160,80,0.5)';
+  ctx.lineWidth = 0.5;
+  ctx.beginPath();
+  for (var i3 = 0; i3 < numBins; i3++) {
+    var x3 = i3 * binW;
+    if (i3 === 0) ctx.moveTo(x3, midY - pos[i3] * ampScale);
+    else ctx.lineTo(x3, midY - pos[i3] * ampScale);
+  }
+  ctx.stroke();
+  ctx.beginPath();
+  for (var i4 = 0; i4 < numBins; i4++) {
+    var x4 = i4 * binW;
+    if (i4 === 0) ctx.moveTo(x4, midY - neg[i4] * ampScale);
+    else ctx.lineTo(x4, midY - neg[i4] * ampScale);
+  }
+  ctx.stroke();
+
+  // Annotation markers on waveform
+  annotations.forEach(function(ann) {
+    var tc = ANN_TYPES[ann.type] || ANN_TYPES.custom;
+    var c = ann.color || tc.color;
+    var ax = (ann.vibTime / VIB_DURATION) * w;
+    ctx.strokeStyle = c;
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.moveTo(ax, 0); ctx.lineTo(ax, h); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Label at top
+    ctx.font = '10px "Segoe UI", sans-serif';
+    ctx.fillStyle = c;
+    ctx.textAlign = 'center';
+    ctx.fillText(tc.icon + ' ' + (ann.label || tc.label), ax, 12);
+  });
+
+  // Train region shading (paired arrive/depart)
+  var arrives = annotations.filter(function(a) { return a.type === 'train_arrive'; }).sort(function(a, b) { return a.vibTime - b.vibTime; });
+  var departs = annotations.filter(function(a) { return a.type === 'train_depart'; }).sort(function(a, b) { return a.vibTime - b.vibTime; });
+  arrives.forEach(function(arr) {
+    var dep = departs.find(function(d) { return d.vibTime > arr.vibTime; });
+    if (dep) {
+      var x0 = (arr.vibTime / VIB_DURATION) * w;
+      var x1 = (dep.vibTime / VIB_DURATION) * w;
+      ctx.fillStyle = 'rgba(240,160,80,0.08)';
+      ctx.fillRect(x0, 0, x1 - x0, h);
+    }
+  });
+}
+
+function drawRuler() {
+  var wrap = rulerCanvas.parentElement;
+  var dpr = window.devicePixelRatio || 1;
+  var w = wrap.offsetWidth;
+  var h = wrap.offsetHeight;
+  rulerCanvas.width = w * dpr;
+  rulerCanvas.height = h * dpr;
+  var ctx = rulerCanvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  ctx.fillStyle = '#120d08';
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.strokeStyle = '#3a2d1e';
+  ctx.fillStyle = '#556';
+  ctx.font = '9px "Segoe UI", sans-serif';
+  ctx.textAlign = 'center';
+
+  var tickInterval = VIB_DURATION > 600 ? 60 : (VIB_DURATION > 120 ? 10 : 5);
+  var labelInterval = VIB_DURATION > 600 ? 120 : (VIB_DURATION > 120 ? 30 : 15);
+
+  for (var t = 0; t <= VIB_DURATION; t += tickInterval) {
+    var x = (t / VIB_DURATION) * w;
+    var isMajor = t % labelInterval === 0;
+    ctx.lineWidth = isMajor ? 1 : 0.5;
+    ctx.beginPath();
+    ctx.moveTo(x, h);
+    ctx.lineTo(x, isMajor ? h - 14 : h - 8);
+    ctx.stroke();
+    if (isMajor) {
+      var mm = Math.floor(t / 60);
+      var ss = Math.floor(t % 60);
+      ctx.fillText(mm + ':' + String(ss).padStart(2, '0'), x, h - 14);
+    }
+  }
+}
+
+// ============================================================
+// Web Audio API playback
+// ============================================================
+async function loadAudioBuffer(url) {
+  try {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    var resp = await fetch(url);
+    var buf = await resp.arrayBuffer();
+    audioBuffer = await audioCtx.decodeAudioData(buf);
+    console.log('Audio loaded:', audioBuffer.duration.toFixed(1) + 's, offset=' + AUDIO_OFFSET.toFixed(1) + 's');
+  } catch (e) {
+    console.warn('Audio load failed:', e.message);
+    audioBuffer = null;
+  }
+}
+
+function getCurrentPlayTime() {
+  if (isPlaying && audioCtx && audioBuffer) {
+    var elapsed = audioCtx.currentTime - playStartTime;
+    return Math.min(playStartOffset + elapsed, VIB_DURATION);
+  }
+  return cursorVibT;
+}
+
+function setCursorPosition(vibT) {
+  cursorVibT = Math.max(0, Math.min(VIB_DURATION, vibT));
+  var pct = cursorVibT / VIB_DURATION;
+  waveformCursor.style.left = (pct * 100) + '%';
+
+  vibTimeDisplay.textContent = 't = ' + cursorVibT.toFixed(2) + 's';
+  realTimeDisplayEl.textContent = vibTimeToRealStr(cursorVibT);
+
+  if (cursorVibT >= 0 && cursorVibT <= VIB_DURATION && mainChart && vibData) {
+    var sampleInterval = VIB_DURATION / vibData.time.length;
+    var idx = Math.min(Math.floor(cursorVibT / sampleInterval), vibData.time.length - 1);
+    [mainChart, chartX, chartY, chartZ].forEach(function(c) {
+      if (c) c.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: idx });
+    });
+  }
+}
+
+function startPlayback(fromTime) {
+  stopPlayback();
+  if (!audioBuffer || !audioCtx) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+
+  var gen = ++playGeneration;
+  sourceNode = audioCtx.createBufferSource();
+  sourceNode.buffer = audioBuffer;
+  sourceNode.connect(audioCtx.destination);
+  sourceNode.onended = function() {
+    if (gen === playGeneration && isPlaying) {
+      isPlaying = false;
+      cursorVibT = getCurrentPlayTime();
+      playBtn.textContent = '\u25B6';
+      if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+    }
+  };
+
+  // Audio offset: vibTime maps to audio position (vibTime + audioOffset if audio started earlier)
+  // The audio_segment.wav is already trimmed to align with vibration data, so vibTime maps directly
+  playStartOffset = Math.max(0, Math.min(fromTime, VIB_DURATION));
+  playStartTime = audioCtx.currentTime;
+  sourceNode.start(0, playStartOffset);
+  isPlaying = true;
+  playBtn.textContent = '\u23F8';
+  animateCursor();
+}
+
+function stopPlayback() {
+  if (isPlaying) {
+    cursorVibT = getCurrentPlayTime();
+  }
+  playGeneration++;
+  if (sourceNode) {
+    sourceNode.onended = null;
+    try { sourceNode.stop(); } catch (e) {}
+    sourceNode.disconnect();
+    sourceNode = null;
+  }
+  isPlaying = false;
+  if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+}
+
+function animateCursor() {
+  if (isPlaying) {
+    setCursorPosition(getCurrentPlayTime());
+    animFrameId = requestAnimationFrame(animateCursor);
+  }
+}
+
+function togglePlay() {
+  if (!isPlaying) {
+    startPlayback(cursorVibT);
+  } else {
+    stopPlayback();
+    playBtn.textContent = '\u25B6';
+    setCursorPosition(cursorVibT);
+  }
+}
+
+// Click on waveform to seek
+waveformWrap.addEventListener('click', function(e) {
+  if (e.button !== 0) return; // left click only
+  var rect = waveformWrap.getBoundingClientRect();
+  var pct = (e.clientX - rect.left) / rect.width;
+  var vibT = pct * VIB_DURATION;
+  setCursorPosition(vibT);
+  if (isPlaying) {
+    startPlayback(vibT);
+  }
+});
+
+// Right-click on waveform for context menu
+waveformWrap.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+  var rect = waveformWrap.getBoundingClientRect();
+  var pct = (e.clientX - rect.left) / rect.width;
+  var vibT = pct * VIB_DURATION;
+  showContextMenu(e.clientX, e.clientY, vibT);
+});
+
+// Handle resize
+window.addEventListener('resize', function() {
+  drawWaveform();
+  drawRuler();
+});
+
+// Jump to vibration time
+function jumpToTime(vibT, span) {
+  span = span || 10;
+  setCursorPosition(vibT);
+  startPlayback(vibT);
+  if (mainChart) {
+    var start = Math.max(0, ((vibT - span) / VIB_DURATION) * 100);
+    var end = Math.min(100, ((vibT + span) / VIB_DURATION) * 100);
+    [mainChart, chartX, chartY, chartZ].forEach(function(c) {
+      if (c) c.dispatchAction({ type: 'dataZoom', start: start, end: end });
+    });
+  }
+}
+
+// ============================================================
+// Context Menu
+// ============================================================
+function showContextMenu(clientX, clientY, vibT) {
+  ctxVibTime = Math.max(0, Math.min(VIB_DURATION, vibT));
+
+  // Check for nearby annotation (within 2% of duration)
+  var threshold = VIB_DURATION * 0.02;
+  ctxNearAnnotation = null;
+  var minDist = Infinity;
+  annotations.forEach(function(ann) {
+    var dist = Math.abs(ann.vibTime - ctxVibTime);
+    if (dist < threshold && dist < minDist) {
+      minDist = dist;
+      ctxNearAnnotation = ann;
+    }
+  });
+
+  // Show/hide delete option
+  var deleteSep = ctxMenu.querySelector('.ctx-delete-sep');
+  var deleteItem = ctxMenu.querySelector('.ctx-delete-item');
+  if (ctxNearAnnotation) {
+    deleteSep.style.display = '';
+    deleteItem.style.display = '';
+    var tc = ANN_TYPES[ctxNearAnnotation.type] || ANN_TYPES.custom;
+    deleteItem.textContent = '\u274C 删除: ' + tc.icon + ' ' + (ctxNearAnnotation.label || tc.label);
+  } else {
+    deleteSep.style.display = 'none';
+    deleteItem.style.display = 'none';
+  }
+
+  // Position menu
+  ctxMenu.style.left = clientX + 'px';
+  ctxMenu.style.top = clientY + 'px';
+  ctxMenu.classList.add('visible');
+
+  // Keep menu within viewport
+  requestAnimationFrame(function() {
+    var rect = ctxMenu.getBoundingClientRect();
+    if (rect.right > window.innerWidth) {
+      ctxMenu.style.left = (clientX - rect.width) + 'px';
+    }
+    if (rect.bottom > window.innerHeight) {
+      ctxMenu.style.top = (clientY - rect.height) + 'px';
+    }
+  });
+}
+
+function hideContextMenu() {
+  ctxMenu.classList.remove('visible');
+}
+
+// Hide context menu on click anywhere (but not on the menu itself)
+document.addEventListener('click', function(e) {
+  if (!ctxMenu.contains(e.target)) {
+    hideContextMenu();
+  }
+});
+document.addEventListener('contextmenu', function(e) {
+  // Only hide if not clicking on our target areas
+  if (!waveformWrap.contains(e.target) && !document.getElementById('mainChart').contains(e.target)) {
+    hideContextMenu();
+  }
+});
+
+function ctxAddAnnotation(type) {
+  hideContextMenu();
+  var label = '';
+  if (type === 'custom') {
+    label = prompt('输入标注名称:');
+    if (!label) return;
+  }
+  var tc = ANN_TYPES[type] || ANN_TYPES.custom;
+  addAnnotation(type, ctxVibTime, label || tc.label);
+}
+
+function ctxDeleteAnnotation() {
+  hideContextMenu();
+  if (ctxNearAnnotation) {
+    deleteAnnotation(ctxNearAnnotation.id);
+  }
+}
+
+// ============================================================
+// Annotation CRUD
+// ============================================================
+function generateId() {
+  return 'ann_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+}
+
+function addAnnotation(type, vibT, label) {
+  var tc = ANN_TYPES[type] || ANN_TYPES.custom;
+  var ann = {
+    id: generateId(),
+    type: type,
+    label: label || tc.label,
+    vibTime: Math.round(vibT * 100) / 100,
+    source: 'manual',
+    color: tc.color,
+    notes: '',
+  };
+  annotations.push(ann);
+  annotations.sort(function(a, b) { return a.vibTime - b.vibTime; });
+  onAnnotationsChanged();
+}
+
+function deleteAnnotation(id) {
+  annotations = annotations.filter(function(a) { return a.id !== id; });
+  onAnnotationsChanged();
+}
+
+function onAnnotationsChanged() {
+  saveAnnotations();
+  renderEventTags();
+  renderAnnotationList();
+  updateChartMarkLines();
+  drawWaveform();
+}
+
+function saveAnnotations() {
+  if (!currentDataset) return;
+  var lsKey = 'vib_ann_' + currentDataset.id;
+  localStorage.setItem(lsKey, JSON.stringify(annotations));
+
+  // Try to POST to server (silently fail if no API)
+  try {
+    fetch('datasets/' + currentDataset.id + '/annotations.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ datasetId: currentDataset.id, annotations: annotations }),
+    }).catch(function() {});
+  } catch (e) {}
+}
+
+function exportAnnotations() {
+  if (!currentDataset) return;
+  var data = { datasetId: currentDataset.id, annotations: annotations };
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = currentDataset.id + '_annotations.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importAnnotations(file) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = JSON.parse(e.target.result);
+      var imported = data.annotations || data;
+      if (!Array.isArray(imported)) {
+        alert('无效的标注文件格式');
+        return;
+      }
+      // Ensure each has an id
+      imported.forEach(function(ann) {
+        if (!ann.id) ann.id = generateId();
+      });
+      annotations = imported;
+      annotations.sort(function(a, b) { return a.vibTime - b.vibTime; });
+      onAnnotationsChanged();
+    } catch (err) {
+      alert('导入失败: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  // Reset input so the same file can be imported again
+  document.getElementById('importInput').value = '';
+}
+
+function updateChartMarkLines() {
+  var mlData = makeMarkLines();
+  var maData = makeMarkAreas();
+  if (mainChart) {
+    mainChart.setOption({
+      series: [{
+        markLine: { silent: true, symbol: 'none', data: mlData },
+        markArea: { silent: true, data: maData },
+      }, {}, {}, {}]
+    });
+  }
+  [chartX, chartY, chartZ].forEach(function(c) {
+    if (c) {
+      c.setOption({
+        series: [{
+          markLine: { silent: true, symbol: 'none', data: mlData },
+        }]
+      });
+    }
+  });
+}
+
+// ============================================================
+// Render event tags strip
+// ============================================================
+function renderEventTags() {
+  var container = document.getElementById('eventTags');
+  if (annotations.length === 0) {
+    container.innerHTML = '<span class="no-annotations">右键图表或波形添加标注</span>';
+    return;
+  }
+  var html = '';
+  annotations.forEach(function(ann) {
+    var tc = ANN_TYPES[ann.type] || ANN_TYPES.custom;
+    var cssClass = tc.cssClass;
+    var realStr = vibTimeToRealStr(ann.vibTime);
+    html += '<div class="event-tag ' + cssClass + '" onclick="jumpToTime(' + ann.vibTime + ')">';
+    html += '<span>' + tc.icon + '</span>';
+    html += '<span>' + escapeHtml(ann.label || tc.label) + '</span>';
+    html += '<span class="event-time">' + realStr + '</span>';
+    html += '<span style="font-size:11px;opacity:0.7">t=' + ann.vibTime.toFixed(1) + 's</span>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+// ============================================================
+// Render annotation list panel
+// ============================================================
+function renderAnnotationList() {
+  var container = document.getElementById('annList');
+  if (annotations.length === 0) {
+    container.innerHTML = '<div class="ann-empty">暂无标注。右键图表或波形添加标注。</div>';
+    return;
+  }
+  var html = '';
+  annotations.forEach(function(ann) {
+    var tc = ANN_TYPES[ann.type] || ANN_TYPES.custom;
+    var realStr = vibTimeToRealStr(ann.vibTime);
+    html += '<div class="ann-row" onclick="jumpToTime(' + ann.vibTime + ')">';
+    html += '<span class="ann-icon">' + tc.icon + '</span>';
+    html += '<span class="ann-label">' + escapeHtml(ann.label || tc.label) + '</span>';
+    html += '<span class="ann-time">t=' + ann.vibTime.toFixed(2) + 's | ' + realStr + '</span>';
+    html += '<button class="ann-delete" onclick="event.stopPropagation(); deleteAnnotation(\'' + ann.id + '\')" title="删除">\u2716</button>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+// ============================================================
+// Utility
+// ============================================================
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ============================================================
+// Start
+// ============================================================
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+[
+  {
+    "id": "ev01",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:06:50",
+    "abs_end": "20:06:59",
+    "duration_sec": 8.865,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev01_audio.wav",
+    "audio_range_in_file": [
+      444.266,
+      453.131
+    ],
+    "vib_slices": {
+      "g (1).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev01_g_1.npz",
+        "n_samples": 1081,
+        "peak_abs": 0.11002727680745877,
+        "mean_abs": 0.03855616696638191,
+        "rms_abs": 0.04256969642107318
+      }
+    },
+    "note": null
+  },
+  {
+    "id": "ev02",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:15:15",
+    "abs_end": "20:15:21",
+    "duration_sec": 5.814,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev02_audio.wav",
+    "audio_range_in_file": [
+      949.058,
+      954.872
+    ],
+    "vib_slices": {
+      "g (3).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev02_g_3.npz",
+        "n_samples": 777,
+        "peak_abs": 0.11500316052147735,
+        "mean_abs": 0.039043463040153194,
+        "rms_abs": 0.04353415707673196
+      }
+    },
+    "note": null
+  },
+  {
+    "id": "ev03",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:18:28",
+    "abs_end": "20:18:37",
+    "duration_sec": 8.858,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev03_audio.wav",
+    "audio_range_in_file": [
+      1142.001,
+      1150.86
+    ],
+    "vib_slices": {
+      "g (4).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev03_g_4.npz",
+        "n_samples": 1080,
+        "peak_abs": 0.12599010157875798,
+        "mean_abs": 0.04082694859188755,
+        "rms_abs": 0.04484979344543903
+      }
+    },
+    "note": null
+  },
+  {
+    "id": "ev04",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:22:00",
+    "abs_end": "20:22:07",
+    "duration_sec": 7.208,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev04_audio.wav",
+    "audio_range_in_file": [
+      1353.821,
+      1361.029
+    ],
+    "vib_slices": {
+      "g (5).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev04_g_5.npz",
+        "n_samples": 916,
+        "peak_abs": 0.1299073940999666,
+        "mean_abs": 0.03921520400595211,
+        "rms_abs": 0.04407797100946005
+      }
+    },
+    "note": {
+      "time": "20:20:00",
+      "text": "20:20敲击\n"
+    }
+  },
+  {
+    "id": "ev05",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:26:27",
+    "abs_end": "20:26:38",
+    "duration_sec": 11.467,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev05_audio.wav",
+    "audio_range_in_file": [
+      1620.513,
+      1631.979
+    ],
+    "vib_slices": {
+      "g (6).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev05_g_6.npz",
+        "n_samples": 1339,
+        "peak_abs": 0.19491977375867417,
+        "mean_abs": 0.04477522034784673,
+        "rms_abs": 0.051821879154715186
+      }
+    },
+    "note": {
+      "time": "20:24:00",
+      "text": "20:24敲 --+\n"
+    }
+  },
+  {
+    "id": "ev06",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:28:46",
+    "abs_end": "20:28:53",
+    "duration_sec": 7.07,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev06_audio.wav",
+    "audio_range_in_file": [
+      1759.749,
+      1766.82
+    ],
+    "vib_slices": {
+      "g (7).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev06_g_7.npz",
+        "n_samples": 902,
+        "peak_abs": 0.26041610659071057,
+        "mean_abs": 0.040240453757710605,
+        "rms_abs": 0.0465376738802531
+      }
+    },
+    "note": {
+      "time": "20:28:00",
+      "text": "20:28 敲\n"
+    }
+  },
+  {
+    "id": "ev07",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:38:43",
+    "abs_end": "20:38:52",
+    "duration_sec": 8.03,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev07_audio.wav",
+    "audio_range_in_file": [
+      2357.477,
+      2365.506
+    ],
+    "vib_slices": {
+      "g (8).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev07_g_8.npz",
+        "n_samples": 998,
+        "peak_abs": 0.11229284589069198,
+        "mean_abs": 0.042038149764831355,
+        "rms_abs": 0.04674066007442246
+      }
+    },
+    "note": {
+      "time": "20:38:00",
+      "text": "20:38敲\n"
+    }
+  },
+  {
+    "id": "ev08",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "service_desk",
+    "group_desc": "服务台",
+    "audio_name": "2026年04月06日 19点59分.m4a",
+    "abs_start": "20:48:22",
+    "abs_end": "20:48:26",
+    "duration_sec": 4.864,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev08_audio.wav",
+    "audio_range_in_file": [
+      2935.54,
+      2940.404
+    ],
+    "vib_slices": {},
+    "note": {
+      "time": "20:38:00",
+      "text": "20:38敲\n"
+    }
+  },
+  {
+    "id": "ev09",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "ground_floor",
+    "group_desc": "地面(正后方)",
+    "audio_name": "2026年04月06日 20点57分.m4a",
+    "abs_start": "21:20:08",
+    "abs_end": "21:20:18",
+    "duration_sec": 10.589,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev09_audio.wav",
+    "audio_range_in_file": [
+      1353.494,
+      1364.083
+    ],
+    "vib_slices": {
+      "g (12).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev09_g_12.npz",
+        "n_samples": 1252,
+        "peak_abs": 0.09355295066606807,
+        "mean_abs": 0.03356324869474713,
+        "rms_abs": 0.03694022020633848
+      }
+    },
+    "note": {
+      "time": "21:15:00",
+      "text": "21:15踩踢\n"
+    }
+  },
+  {
+    "id": "ev10",
+    "type": "train_pass",
+    "label": "过车",
+    "group": "ground_floor",
+    "group_desc": "地面(正后方)",
+    "audio_name": "2026年04月06日 20点57分.m4a",
+    "abs_start": "21:21:12",
+    "abs_end": "21:21:24",
+    "duration_sec": 11.308,
+    "audio_clip": "D:\\projects\\vib\\analysis\\events\\ev10_audio.wav",
+    "audio_range_in_file": [
+      1418.157,
+      1429.466
+    ],
+    "vib_slices": {
+      "g (13).xls": {
+        "path": "D:\\projects\\vib\\analysis\\events\\ev10_g_13.npz",
+        "n_samples": 1324,
+        "peak_abs": 0.10409765008622858,
+        "mean_abs": 0.03437275426209194,
+        "rms_abs": 0.03797891662362401
+      }
+    },
+    "note": {
+      "time": "21:22:00",
+      "text": "21:22踩踢\n"
+    }
+  }
+]

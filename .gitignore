@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.pytest_cache/
+
+# Auto-generated docx / temp
+manuscript/manuscript.docx
+manuscript/~$*
+*.tmp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Private materials (do NOT commit)
+投稿要求/
+参考文献/
+images/
+manuscript/往期参考/
+
+# Raw notes contain personal/colloquial content — only the cleaned demo version is published
+vib_viz/notes.txt
+
+# Large raw audio files — released as clipped WAV in data_release/ instead
+sound/*.m4a
+
+# Release artifacts (built on demand, not version-controlled)
+data_release/
+
+# IDE / tooling
+.claude/
+
+# Phyphox sync temp files
+vib_data/.pending-*.xls
+vib_data/g.xls
+vib_data/g.zip
+
+# Subway (off-topic) data — paper focuses on station only
+vib_data/g (17)*.xls
+vib_data/g (18)*.xls
+vib_viz/datasets/g17/
+vib_viz/datasets/g18/
+vib_viz/datasets/g19/
+analysis/events/*subway*.npz
+
+# Private raw notes — only notes_demo.txt is published
+记录整理.md
+记录文字.txt
+
+# Raw converted audio (contains un-scrubbed speech) — clipped release only
+vib_viz/audio_wav/

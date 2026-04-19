@@ -1,0 +1,1264 @@
+{
+  "generated": "2026-04-18T16:29:22.451Z",
+  "version": 2,
+  "alignData": {
+    "2026年04月06日 19点59分.m4a": {
+      "audioMarks": [
+        {
+          "id": "mmo35a3nd6ty9",
+          "sec": 72180.74844803971,
+          "noteRef": {
+            "lineIdx": 22,
+            "noteSec": 72180,
+            "noteText": "20:03 敲击台面，随后，旁边一位女生撞了台子\n"
+          }
+        },
+        {
+          "id": "mmo3phmwovawc",
+          "sec": 72240,
+          "noteRef": {
+            "lineIdx": 24,
+            "noteSec": 72240,
+            "noteText": "20:04重新敲 ，+ + -规律\n"
+          }
+        },
+        {
+          "id": "mmo3tn3d6as1w",
+          "sec": 72934.26149638333,
+          "noteRef": {
+            "lineIdx": 46,
+            "noteSec": 72900,
+            "noteText": "敲击 20:15 非整点\n"
+          }
+        },
+        {
+          "id": "mmo3to7hymzrm",
+          "sec": 72959.25610431563,
+          "noteRef": {
+            "lineIdx": 47,
+            "noteSec": 72960,
+            "noteText": "20:16 整点 敲\n"
+          }
+        },
+        {
+          "id": "mmo42l3dmok18",
+          "sec": 73098.75689942153
+        },
+        {
+          "id": "mmo40sjcc9s30",
+          "sec": 73199.50119859556,
+          "noteRef": {
+            "lineIdx": 66,
+            "noteSec": 73200,
+            "noteText": "20:20敲击\n"
+          }
+        },
+        {
+          "id": "mmo42p3hk8m4u",
+          "sec": 73439.2820884699,
+          "noteRef": {
+            "lineIdx": 73,
+            "noteSec": 73440,
+            "noteText": "20:24敲 --+\n"
+          }
+        },
+        {
+          "id": "mmo42rg7k7rcc",
+          "sec": 73679.0079879156,
+          "noteRef": {
+            "lineIdx": 81,
+            "noteSec": 73680,
+            "noteText": "20:28 敲\n"
+          }
+        },
+        {
+          "id": "mmo42wbdv7tpq",
+          "sec": 74283.02393038434,
+          "noteRef": {
+            "lineIdx": 91,
+            "noteSec": 74280,
+            "noteText": "20:38敲\n"
+          }
+        }
+      ],
+      "vibMarks": {
+        "g (1).xls": [
+          {
+            "id": "mmo35a986gt40",
+            "vibRelSec": 32.16314939766016,
+            "pairedAudioId": "mmo35a3nd6ty9"
+          },
+          {
+            "id": "mmo3pi5vlntau",
+            "vibRelSec": 91.42167254369997,
+            "pairedAudioId": "mmo3phmwovawc"
+          }
+        ],
+        "g (3).xls": [
+          {
+            "id": "mmo3tnc3yuw51",
+            "vibRelSec": 27.771728482970502,
+            "pairedAudioId": "mmo3tn3d6as1w"
+          },
+          {
+            "id": "mmo3towbqd289",
+            "vibRelSec": 52.7119926281448,
+            "pairedAudioId": "mmo3to7hymzrm"
+          }
+        ],
+        "g (4).xls": [
+          {
+            "id": "mmo42l93bqixn",
+            "vibRelSec": 108.38110561590292,
+            "pairedAudioId": "mmo42l3dmok18"
+          }
+        ],
+        "g (5).xls": [
+          {
+            "id": "mmo40sr6ne3h1",
+            "vibRelSec": 62.77757015459065,
+            "pairedAudioId": "mmo40sjcc9s30"
+          }
+        ],
+        "g (6).xls": [
+          {
+            "id": "mmo42p6ctag89",
+            "vibRelSec": 43.03589986098814,
+            "pairedAudioId": "mmo42p3hk8m4u"
+          }
+        ],
+        "g (7).xls": [
+          {
+            "id": "mmo42s3wyr9bp",
+            "vibRelSec": 69.42078749697248,
+            "pairedAudioId": "mmo42rg7k7rcc"
+          }
+        ],
+        "g (8).xls": [
+          {
+            "id": "mmo42wfo1utmp",
+            "vibRelSec": 16.93619587017747,
+            "pairedAudioId": "mmo42wbdv7tpq"
+          }
+        ]
+      },
+      "audioShift": 26.500955858427915,
+      "xlsShifts": {
+        "g (3).xls": -0.026154916544328444,
+        "g (4).xls": 0,
+        "g (7).xls": 0
+      },
+      "events": [
+        {
+          "id": "emo4jtqn7mdzl",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 72207.11988136376,
+          "endSec": 72211.9273923981
+        },
+        {
+          "id": "emo4jtd8fgmkm",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 72272.42347113813,
+          "endSec": 72287.4447070688
+        },
+        {
+          "id": "emo4jtgwt0vnd",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 72370.01426809646,
+          "endSec": 72381.25657674897
+        },
+        {
+          "id": "emo40ku8tmmev",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 72410.76690435596,
+          "endSec": 72419.63172448258
+        },
+        {
+          "id": "emo4ju5pobx90",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 72576.68833145968,
+          "endSec": 72597.56690467148
+        },
+        {
+          "id": "emo4ju0azo0xz",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 72771.64115641417,
+          "endSec": 72793.67419190945
+        },
+        {
+          "id": "emo40mbbpyc5u",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 72915.55876473503,
+          "endSec": 72921.37249900911
+        },
+        {
+          "id": "emo4jugkosnjo",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 72924.11769584673,
+          "endSec": 72931.09417697563
+        },
+        {
+          "id": "emo4jud51ayip",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 72939.23340495935,
+          "endSec": 72953.47705393085
+        },
+        {
+          "id": "emo4junylbu8s",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 73042.06147895251,
+          "endSec": 73076.69534745679
+        },
+        {
+          "id": "emo40oycyx4kj",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 73108.50238222322,
+          "endSec": 73117.36058681243
+        },
+        {
+          "id": "emo4juvsxbnzo",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 73176.85174369917,
+          "endSec": 73195.2126066119
+        },
+        {
+          "id": "emo4juzpv19qx",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 73230.33773566235,
+          "endSec": 73263.22762922777
+        },
+        {
+          "id": "emo40xzexjhnq",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 73320.32231177665,
+          "endSec": 73327.5298737781,
+          "noteRef": {
+            "lineIdx": 66,
+            "noteSec": 73200,
+            "noteText": "20:20敲击\n"
+          }
+        },
+        {
+          "id": "emo4jv6lrqkiv",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 73406.85596047861,
+          "endSec": 73429.57676073852
+        },
+        {
+          "id": "emo4jv97tlu66",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 73455.18776960661,
+          "endSec": 73479.47200655467
+        },
+        {
+          "id": "emo4jvc4qwma3",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 73522.26878310909,
+          "endSec": 73577.83035087978
+        },
+        {
+          "id": "emo42pvxqbzov",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 73587.01360195862,
+          "endSec": 73598.48033602965,
+          "noteRef": {
+            "lineIdx": 73,
+            "noteSec": 73440,
+            "noteText": "20:24敲 --+\n"
+          }
+        },
+        {
+          "id": "emo4jvjuvj6ip",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 73686.65914331749,
+          "endSec": 73702.71958424964
+        },
+        {
+          "id": "emo42t0ykk3ie",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 73726.25020045352,
+          "endSec": 73733.32054128022,
+          "noteRef": {
+            "lineIdx": 81,
+            "noteSec": 73680,
+            "noteText": "20:28 敲\n"
+          }
+        },
+        {
+          "id": "emo42x974xbdu",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 74323.97760985153,
+          "endSec": 74332.0072545216,
+          "noteRef": {
+            "lineIdx": 91,
+            "noteSec": 74280,
+            "noteText": "20:38敲\n"
+          }
+        },
+        {
+          "id": "emo430hgc59bo",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 74902.04058808366,
+          "endSec": 74906.90498257244,
+          "noteRef": {
+            "lineIdx": 91,
+            "noteSec": 74280,
+            "noteText": "20:38敲\n"
+          }
+        }
+      ]
+    },
+    "2026年04月06日 20点57分.m4a": {
+      "audioMarks": [
+        {
+          "id": "mmo43fvlq2mv3",
+          "sec": 75960.02175489486,
+          "noteRef": {
+            "lineIdx": 132,
+            "noteSec": 75960,
+            "noteText": "21:06踩踢，手随后调整\n"
+          }
+        },
+        {
+          "id": "mmo49pzumqf8v",
+          "sec": 76500.9789702683,
+          "noteRef": {
+            "lineIdx": 148,
+            "noteSec": 76500,
+            "noteText": "21:15踩踢\n"
+          }
+        },
+        {
+          "id": "mmo49tq0fwb3c",
+          "sec": 76919.93473531544,
+          "noteRef": {
+            "lineIdx": 159,
+            "noteSec": 76920,
+            "noteText": "21:22踩踢\n"
+          }
+        }
+      ],
+      "vibMarks": {
+        "g (11).xls": [
+          {
+            "id": "mmo43g2bz7bkh",
+            "vibRelSec": 44.8032291460695,
+            "pairedAudioId": "mmo43fvlq2mv3"
+          }
+        ],
+        "g (12).xls": [
+          {
+            "id": "mmo49qqd34k6j",
+            "vibRelSec": 109.52911136737384,
+            "pairedAudioId": "mmo49pzumqf8v"
+          }
+        ],
+        "g (13).xls": [
+          {
+            "id": "mmo49tw2cgeg0",
+            "vibRelSec": 84.04336057050386,
+            "pairedAudioId": "mmo49tq0fwb3c"
+          }
+        ]
+      },
+      "audioShift": 34.71870092701283,
+      "xlsShifts": {},
+      "events": [
+        {
+          "id": "emo4jwk16zxjg",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 75925.88074131805,
+          "endSec": 75955.98309923706
+        },
+        {
+          "id": "emo4jws1lf5h6",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 76078.97961195085,
+          "endSec": 76090.57325142808
+        },
+        {
+          "id": "emo4jwzcv3iht",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 76244.00036091826,
+          "endSec": 76269.34827268438
+        },
+        {
+          "id": "emo4jx9n9gf8a",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 76700.10643904978,
+          "endSec": 76730.8322185825
+        },
+        {
+          "id": "emo49s625ey3o",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 76808.21300253615,
+          "endSec": 76818.8015449582,
+          "noteRef": {
+            "lineIdx": 148,
+            "noteSec": 76500,
+            "noteText": "21:15踩踢\n"
+          }
+        },
+        {
+          "id": "emo4jxfp9zrym",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 76855.9473977136,
+          "endSec": 76868.96389294484
+        },
+        {
+          "id": "emo49ucd147ax",
+          "type": "train_pass",
+          "label": "过车",
+          "startSec": 76872.87607000848,
+          "endSec": 76884.18448625212,
+          "noteRef": {
+            "lineIdx": 159,
+            "noteSec": 76920,
+            "noteText": "21:22踩踢\n"
+          }
+        },
+        {
+          "id": "emo4jxk9fz8jb",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "startSec": 76903.4760339246,
+          "endSec": 76915.202297611
+        }
+      ]
+    },
+    "2026年04月06日 21点31分.m4a": {
+      "audioMarks": [],
+      "vibMarks": {},
+      "audioShift": 0,
+      "xlsShifts": {
+        "g (14).xls": -28.233920179787674
+      },
+      "events": []
+    },
+    "2026年04月06日 22点25分.m4a": {
+      "audioMarks": [],
+      "vibMarks": {},
+      "audioShift": 0,
+      "xlsShifts": {
+        "g (17)地铁数据_杭州西站出发.xls": -60.28988397389185
+      },
+      "events": []
+    },
+    "2026年04月06日 22点29分.m4a": {
+      "audioMarks": [],
+      "vibMarks": {},
+      "audioShift": 0,
+      "xlsShifts": {
+        "g (17)地铁数据_杭州西站出发.xls": -73.80180384336563,
+        "g (18)地铁数据_到海创园.xls": -61.188404641041416
+      },
+      "events": []
+    }
+  },
+  "summary": {
+    "2026年04月06日 19点59分.m4a": {
+      "audioMarkCount": 9,
+      "vibFiles": {
+        "g (1).xls": {
+          "totalMarks": 2,
+          "pairedMarks": 2,
+          "pairs": [
+            {
+              "vibRelSec": 32.16314939766016,
+              "audioAbsSec": 72180.74844803971,
+              "audioTimeStr": "20:03:00",
+              "offset": 72148.58529864205,
+              "note": {
+                "time": "20:03:00",
+                "text": "20:03 敲击台面，随后，旁边一位女生撞了台子\n"
+              }
+            },
+            {
+              "vibRelSec": 91.42167254369997,
+              "audioAbsSec": 72240,
+              "audioTimeStr": "20:04:00",
+              "offset": 72148.5783274563,
+              "note": {
+                "time": "20:04:00",
+                "text": "20:04重新敲 ，+ + -规律\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "20:03 敲击台面，随后，旁边一位女生撞了台子\n",
+            "20:04重新敲 ，+ + -规律\n"
+          ],
+          "computedStartSec": 72148.58181304918,
+          "computedStartTime": "20:02:28",
+          "maxDeviationMs": 3
+        },
+        "g (3).xls": {
+          "totalMarks": 2,
+          "pairedMarks": 2,
+          "pairs": [
+            {
+              "vibRelSec": 27.771728482970502,
+              "audioAbsSec": 72934.26149638333,
+              "audioTimeStr": "20:15:34",
+              "offset": 72906.48976790036,
+              "note": {
+                "time": "20:15:00",
+                "text": "敲击 20:15 非整点\n"
+              }
+            },
+            {
+              "vibRelSec": 52.7119926281448,
+              "audioAbsSec": 72959.25610431563,
+              "audioTimeStr": "20:15:59",
+              "offset": 72906.54411168749,
+              "note": {
+                "time": "20:16:00",
+                "text": "20:16 整点 敲\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "敲击 20:15 非整点\n",
+            "20:16 整点 敲\n"
+          ],
+          "computedStartSec": 72906.51693979392,
+          "computedStartTime": "20:15:06",
+          "maxDeviationMs": 27
+        },
+        "g (4).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 108.38110561590292,
+              "audioAbsSec": 73098.75689942153,
+              "audioTimeStr": "20:18:18",
+              "offset": 72990.37579380562
+            }
+          ],
+          "computedStartSec": 72990.37579380562,
+          "computedStartTime": "20:16:30"
+        },
+        "g (5).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 62.77757015459065,
+              "audioAbsSec": 73199.50119859556,
+              "audioTimeStr": "20:19:59",
+              "offset": 73136.72362844097,
+              "note": {
+                "time": "20:20:00",
+                "text": "20:20敲击\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "20:20敲击\n"
+          ],
+          "computedStartSec": 73136.72362844097,
+          "computedStartTime": "20:18:56"
+        },
+        "g (6).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 43.03589986098814,
+              "audioAbsSec": 73439.2820884699,
+              "audioTimeStr": "20:23:59",
+              "offset": 73396.24618860891,
+              "note": {
+                "time": "20:24:00",
+                "text": "20:24敲 --+\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "20:24敲 --+\n"
+          ],
+          "computedStartSec": 73396.24618860891,
+          "computedStartTime": "20:23:16"
+        },
+        "g (7).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 69.42078749697248,
+              "audioAbsSec": 73679.0079879156,
+              "audioTimeStr": "20:27:59",
+              "offset": 73609.58720041862,
+              "note": {
+                "time": "20:28:00",
+                "text": "20:28 敲\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "20:28 敲\n"
+          ],
+          "computedStartSec": 73609.58720041862,
+          "computedStartTime": "20:26:49"
+        },
+        "g (8).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 16.93619587017747,
+              "audioAbsSec": 74283.02393038434,
+              "audioTimeStr": "20:38:03",
+              "offset": 74266.08773451416,
+              "note": {
+                "time": "20:38:00",
+                "text": "20:38敲\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "20:38敲\n"
+          ],
+          "computedStartSec": 74266.08773451416,
+          "computedStartTime": "20:37:46"
+        }
+      },
+      "events": [
+        {
+          "id": "emo4jtqn7mdzl",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:03:27",
+          "absEndTime": "20:03:31",
+          "durationSec": 4.808,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 240.619,
+          "audioFileEndSec": 245.426,
+          "vibFiles": {
+            "g (1).xls": {
+              "vibStartSec": 58.538,
+              "vibEndSec": 63.346
+            }
+          }
+        },
+        {
+          "id": "emo4jtd8fgmkm",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:04:32",
+          "absEndTime": "20:04:47",
+          "durationSec": 15.021,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 305.923,
+          "audioFileEndSec": 320.944,
+          "vibFiles": {
+            "g (1).xls": {
+              "vibStartSec": 123.842,
+              "vibEndSec": 138.863
+            }
+          }
+        },
+        {
+          "id": "emo4jtgwt0vnd",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:06:10",
+          "absEndTime": "20:06:21",
+          "durationSec": 11.242,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 403.513,
+          "audioFileEndSec": 414.756,
+          "vibFiles": {
+            "g (1).xls": {
+              "vibStartSec": 221.432,
+              "vibEndSec": 232.675
+            }
+          }
+        },
+        {
+          "id": "emo40ku8tmmev",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:06:50",
+          "absEndTime": "20:06:59",
+          "durationSec": 8.865,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 444.266,
+          "audioFileEndSec": 453.131,
+          "vibFiles": {
+            "g (1).xls": {
+              "vibStartSec": 262.185,
+              "vibEndSec": 271.05
+            }
+          }
+        },
+        {
+          "id": "emo4ju5pobx90",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:09:36",
+          "absEndTime": "20:09:57",
+          "durationSec": 20.879,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 610.187,
+          "audioFileEndSec": 631.066,
+          "vibFiles": {}
+        },
+        {
+          "id": "emo4ju0azo0xz",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:12:51",
+          "absEndTime": "20:13:13",
+          "durationSec": 22.033,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 805.14,
+          "audioFileEndSec": 827.173,
+          "vibFiles": {}
+        },
+        {
+          "id": "emo40mbbpyc5u",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:15:15",
+          "absEndTime": "20:15:21",
+          "durationSec": 5.814,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 949.058,
+          "audioFileEndSec": 954.872,
+          "vibFiles": {
+            "g (3).xls": {
+              "vibStartSec": 9.068,
+              "vibEndSec": 14.882
+            }
+          }
+        },
+        {
+          "id": "emo4jugkosnjo",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:15:24",
+          "absEndTime": "20:15:31",
+          "durationSec": 6.976,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 957.617,
+          "audioFileEndSec": 964.593,
+          "vibFiles": {
+            "g (3).xls": {
+              "vibStartSec": 17.627,
+              "vibEndSec": 24.603
+            }
+          }
+        },
+        {
+          "id": "emo4jud51ayip",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:15:39",
+          "absEndTime": "20:15:53",
+          "durationSec": 14.244,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 972.732,
+          "audioFileEndSec": 986.976,
+          "vibFiles": {
+            "g (3).xls": {
+              "vibStartSec": 32.743,
+              "vibEndSec": 46.986
+            }
+          }
+        },
+        {
+          "id": "emo4junylbu8s",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:17:22",
+          "absEndTime": "20:17:56",
+          "durationSec": 34.634,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1075.561,
+          "audioFileEndSec": 1110.194,
+          "vibFiles": {
+            "g (4).xls": {
+              "vibStartSec": 51.686,
+              "vibEndSec": 86.32
+            }
+          }
+        },
+        {
+          "id": "emo40oycyx4kj",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:18:28",
+          "absEndTime": "20:18:37",
+          "durationSec": 8.858,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1142.001,
+          "audioFileEndSec": 1150.86,
+          "vibFiles": {
+            "g (4).xls": {
+              "vibStartSec": 118.127,
+              "vibEndSec": 126.985
+            }
+          }
+        },
+        {
+          "id": "emo4juvsxbnzo",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:19:36",
+          "absEndTime": "20:19:55",
+          "durationSec": 18.361,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1210.351,
+          "audioFileEndSec": 1228.712,
+          "vibFiles": {
+            "g (5).xls": {
+              "vibStartSec": 40.128,
+              "vibEndSec": 58.489
+            }
+          }
+        },
+        {
+          "id": "emo4juzpv19qx",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:20:30",
+          "absEndTime": "20:21:03",
+          "durationSec": 32.89,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1263.837,
+          "audioFileEndSec": 1296.727,
+          "vibFiles": {
+            "g (5).xls": {
+              "vibStartSec": 93.614,
+              "vibEndSec": 126.504
+            }
+          }
+        },
+        {
+          "id": "emo40xzexjhnq",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:22:00",
+          "absEndTime": "20:22:07",
+          "durationSec": 7.208,
+          "note": {
+            "time": "20:20:00",
+            "text": "20:20敲击\n"
+          },
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1353.821,
+          "audioFileEndSec": 1361.029,
+          "vibFiles": {
+            "g (5).xls": {
+              "vibStartSec": 183.599,
+              "vibEndSec": 190.806
+            }
+          }
+        },
+        {
+          "id": "emo4jv6lrqkiv",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:23:26",
+          "absEndTime": "20:23:49",
+          "durationSec": 22.721,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1440.355,
+          "audioFileEndSec": 1463.076,
+          "vibFiles": {
+            "g (6).xls": {
+              "vibStartSec": 10.61,
+              "vibEndSec": 33.331
+            }
+          }
+        },
+        {
+          "id": "emo4jv97tlu66",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:24:15",
+          "absEndTime": "20:24:39",
+          "durationSec": 24.284,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1488.687,
+          "audioFileEndSec": 1512.971,
+          "vibFiles": {
+            "g (6).xls": {
+              "vibStartSec": 58.942,
+              "vibEndSec": 83.226
+            }
+          }
+        },
+        {
+          "id": "emo4jvc4qwma3",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:25:22",
+          "absEndTime": "20:26:17",
+          "durationSec": 55.562,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1555.768,
+          "audioFileEndSec": 1611.329,
+          "vibFiles": {
+            "g (6).xls": {
+              "vibStartSec": 126.023,
+              "vibEndSec": 181.584
+            }
+          }
+        },
+        {
+          "id": "emo42pvxqbzov",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:26:27",
+          "absEndTime": "20:26:38",
+          "durationSec": 11.467,
+          "note": {
+            "time": "20:24:00",
+            "text": "20:24敲 --+\n"
+          },
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1620.513,
+          "audioFileEndSec": 1631.979,
+          "vibFiles": {
+            "g (6).xls": {
+              "vibStartSec": 190.767,
+              "vibEndSec": 202.234
+            }
+          }
+        },
+        {
+          "id": "emo4jvjuvj6ip",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "20:28:06",
+          "absEndTime": "20:28:22",
+          "durationSec": 16.06,
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1720.158,
+          "audioFileEndSec": 1736.219,
+          "vibFiles": {
+            "g (7).xls": {
+              "vibStartSec": 77.072,
+              "vibEndSec": 93.132
+            }
+          }
+        },
+        {
+          "id": "emo42t0ykk3ie",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:28:46",
+          "absEndTime": "20:28:53",
+          "durationSec": 7.07,
+          "note": {
+            "time": "20:28:00",
+            "text": "20:28 敲\n"
+          },
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 1759.749,
+          "audioFileEndSec": 1766.82,
+          "vibFiles": {
+            "g (7).xls": {
+              "vibStartSec": 116.663,
+              "vibEndSec": 123.733
+            }
+          }
+        },
+        {
+          "id": "emo42x974xbdu",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:38:43",
+          "absEndTime": "20:38:52",
+          "durationSec": 8.03,
+          "note": {
+            "time": "20:38:00",
+            "text": "20:38敲\n"
+          },
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 2357.477,
+          "audioFileEndSec": 2365.506,
+          "vibFiles": {
+            "g (8).xls": {
+              "vibStartSec": 57.89,
+              "vibEndSec": 65.92
+            }
+          }
+        },
+        {
+          "id": "emo430hgc59bo",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "20:48:22",
+          "absEndTime": "20:48:26",
+          "durationSec": 4.864,
+          "note": {
+            "time": "20:38:00",
+            "text": "20:38敲\n"
+          },
+          "audioFile": "2026年04月06日 19点59分.m4a",
+          "audioFileStartSec": 2935.54,
+          "audioFileEndSec": 2940.404,
+          "vibFiles": {}
+        }
+      ]
+    },
+    "2026年04月06日 20点57分.m4a": {
+      "audioMarkCount": 3,
+      "vibFiles": {
+        "g (11).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 44.8032291460695,
+              "audioAbsSec": 75960.02175489486,
+              "audioTimeStr": "21:06:00",
+              "offset": 75915.21852574879,
+              "note": {
+                "time": "21:06:00",
+                "text": "21:06踩踢，手随后调整\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "21:06踩踢，手随后调整\n"
+          ],
+          "computedStartSec": 75915.21852574879,
+          "computedStartTime": "21:05:15"
+        },
+        "g (12).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 109.52911136737384,
+              "audioAbsSec": 76500.9789702683,
+              "audioTimeStr": "21:15:00",
+              "offset": 76391.44985890093,
+              "note": {
+                "time": "21:15:00",
+                "text": "21:15踩踢\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "21:15踩踢\n"
+          ],
+          "computedStartSec": 76391.44985890093,
+          "computedStartTime": "21:13:11"
+        },
+        "g (13).xls": {
+          "totalMarks": 1,
+          "pairedMarks": 1,
+          "pairs": [
+            {
+              "vibRelSec": 84.04336057050386,
+              "audioAbsSec": 76919.93473531544,
+              "audioTimeStr": "21:21:59",
+              "offset": 76835.89137474494,
+              "note": {
+                "time": "21:22:00",
+                "text": "21:22踩踢\n"
+              }
+            }
+          ],
+          "associatedNotes": [
+            "21:22踩踢\n"
+          ],
+          "computedStartSec": 76835.89137474494,
+          "computedStartTime": "21:20:35"
+        }
+      },
+      "events": [
+        {
+          "id": "emo4jwk16zxjg",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "21:05:25",
+          "absEndTime": "21:05:55",
+          "durationSec": 30.102,
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 471.162,
+          "audioFileEndSec": 501.264,
+          "vibFiles": {
+            "g (11).xls": {
+              "vibStartSec": 10.662,
+              "vibEndSec": 40.765
+            }
+          }
+        },
+        {
+          "id": "emo4jws1lf5h6",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "21:07:58",
+          "absEndTime": "21:08:10",
+          "durationSec": 11.594,
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 624.261,
+          "audioFileEndSec": 635.855,
+          "vibFiles": {
+            "g (11).xls": {
+              "vibStartSec": 163.761,
+              "vibEndSec": 175.355
+            }
+          }
+        },
+        {
+          "id": "emo4jwzcv3iht",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "21:10:44",
+          "absEndTime": "21:11:09",
+          "durationSec": 25.348,
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 789.282,
+          "audioFileEndSec": 814.63,
+          "vibFiles": {
+            "g (11).xls": {
+              "vibStartSec": 328.782,
+              "vibEndSec": 354.13
+            }
+          }
+        },
+        {
+          "id": "emo4jx9n9gf8a",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "21:18:20",
+          "absEndTime": "21:18:50",
+          "durationSec": 30.726,
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 1245.388,
+          "audioFileEndSec": 1276.114,
+          "vibFiles": {
+            "g (12).xls": {
+              "vibStartSec": 308.657,
+              "vibEndSec": 339.382
+            }
+          }
+        },
+        {
+          "id": "emo49s625ey3o",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "21:20:08",
+          "absEndTime": "21:20:18",
+          "durationSec": 10.589,
+          "note": {
+            "time": "21:15:00",
+            "text": "21:15踩踢\n"
+          },
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 1353.494,
+          "audioFileEndSec": 1364.083,
+          "vibFiles": {
+            "g (12).xls": {
+              "vibStartSec": 416.763,
+              "vibEndSec": 427.352
+            }
+          }
+        },
+        {
+          "id": "emo4jxfp9zrym",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "21:20:55",
+          "absEndTime": "21:21:08",
+          "durationSec": 13.016,
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 1401.229,
+          "audioFileEndSec": 1414.245,
+          "vibFiles": {
+            "g (13).xls": {
+              "vibStartSec": 20.056,
+              "vibEndSec": 33.073
+            }
+          }
+        },
+        {
+          "id": "emo49ucd147ax",
+          "type": "train_pass",
+          "label": "过车",
+          "absStartTime": "21:21:12",
+          "absEndTime": "21:21:24",
+          "durationSec": 11.308,
+          "note": {
+            "time": "21:22:00",
+            "text": "21:22踩踢\n"
+          },
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 1418.157,
+          "audioFileEndSec": 1429.466,
+          "vibFiles": {
+            "g (13).xls": {
+              "vibStartSec": 36.985,
+              "vibEndSec": 48.293
+            }
+          }
+        },
+        {
+          "id": "emo4jxk9fz8jb",
+          "type": "clean_bgnd",
+          "label": "干净本底",
+          "absStartTime": "21:21:43",
+          "absEndTime": "21:21:55",
+          "durationSec": 11.726,
+          "audioFile": "2026年04月06日 20点57分.m4a",
+          "audioFileStartSec": 1448.757,
+          "audioFileEndSec": 1460.484,
+          "vibFiles": {
+            "g (13).xls": {
+              "vibStartSec": 67.585,
+              "vibEndSec": 79.311
+            }
+          }
+        }
+      ]
+    },
+    "2026年04月06日 21点31分.m4a": {
+      "audioMarkCount": 0,
+      "vibFiles": {}
+    },
+    "2026年04月06日 22点25分.m4a": {
+      "audioMarkCount": 0,
+      "vibFiles": {}
+    },
+    "2026年04月06日 22点29分.m4a": {
+      "audioMarkCount": 0,
+      "vibFiles": {}
+    }
+  }
+}
